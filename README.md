@@ -21,11 +21,9 @@ JavaScript의 역할: 웹 내부에서 발생하는 다양한 기능을 만들 �
 
 JavaScript는 어떻게 실행될까? - JavaScript는 “JavaScript 엔진”에 의해 실행된다,, 엔진은 게임 구동기, JavaScript는 게임이라고 이해하면 쉽다,, JavaScript 엔진은 브라우저(크롬, 사파리…)에 기본 탑재되어 있다. 따라서 웹 브라우저를 이용하면 간단한 JavaScript 코드를 직접 실행해볼 수 있다.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/72f23b2a-487f-4d38-910d-8fb0f9375324/image.png)
 
 커서 있는 곳→ 프롬프트라고 함, 명령을 입력받기 위해 대기하고 있음 → JavaScript 코드를 직접 실행해볼 수 있음
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/96180025-4cbc-46f4-b865-2785e4883109/image.png)
 
 console.log → 개발자 도구의 console 창에 출력
 
@@ -33,13 +31,8 @@ console.log → 개발자 도구의 console 창에 출력
 
 1.3) 자바스크립트 실습 환경 설정하기
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/f42df219-1d08-40ec-8922-96c2ff61bb5f/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/8aa3a8b9-36de-4367-bdc7-420cc855a179/image.png)
-
 src → 경로, ‘.’ → 현재 경로
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/81afec4d-33f2-423f-9a3c-20f5963b76af/image.png)
 
 무조건! index.html 페이지에서 ctrl + shift + p → Live Server: Open with Live Server
 
@@ -51,11 +44,9 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 변수, 상수는 값을 저장하는 박스
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/7b0d25f7-b455-40a7-bca7-b4cf1eb90aaa/image.png)
 
 초기화가 이루어지지 않은 변수를 출력하면 undefined가 출력됨
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/2a7c2c0e-63ec-4b98-a048-8434ac7d053f/image.png)
 
 중복된 이름으로 변수 선언 불가능
 
@@ -63,7 +54,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 상수도 변수와 마찬가지로 값을 저장하는 저장소, 차이점은 변수와 달리 한 번 저장된 값은 바꿀 수 없음, 상수는 값을 저장한다는 점은 변수와 동일하지만 초기화 이후에는 다시는 값을 바꿀 수 없다.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/12631090-4698-4d3a-8c4d-0b33df38922b/image.png)
 
 상수는 변할 수 없거나 변하지 말아야 되는 값을 저장할 때 변수 대신에 자주 사용하게 됨. 상수는 값을 변화시키는 것 자체가 불가능하기 때문에 초기화가 반드시 필요함. 상수는 선언 이후에는 다시는 값을 넣어줄 수 없기 때문에 선언할 때 초기값을 할당하는 초기화를 무조건 해줘야 한다.
 
@@ -71,7 +61,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 변수 명명규칙(네이밍 규칙)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/732e7a67-1d9c-47db-a0b6-8bd5fb1dd5f1/image.png)
 
 예약어: let이나 const처럼 자바스크립트가 이미 특수한 의미로 사용하기로 약속한 단어들을 말한다.
 
@@ -83,10 +72,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 자료형(Type)은 “집합”이다.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/690a4689-3cb7-4dbb-8b5e-3ad856328999/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/aa3b335f-ce0e-4f08-87b6-71384a377a4f/image.png)
-
 원시 타입
 
 - 기본형 타입이라고도 불림
@@ -96,7 +81,7 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
     - 기본적인 사칙연산들을 지원함, 나머지 구하는 연산도 가능(%) → 모듈러 연산이라고 함
     - NaN(Not a Number) - 우리가 수치연산에 실패했을 때, 결과값으로 보통 사용하게 됨
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/6576b721-2b5e-428d-8e4a-994c32b57c24/image.png)
+
         
         자바스크립트에는 연산이 실패했을 경우에 반환하는 NaN과 같은 값이 있기 때문에 불가능한 수치 연산을 시키더라도 프로그램이 완전히 종료되어버리거나 하지 않음. 다른 언어에 비해 자바스크립트가 수학 연산에 안전하다.
         
@@ -104,15 +89,14 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
     - 문자열 값을 모두 포함하는 타입
     - 큰따옴표나 작은따옴표로 감싸줘야 한다. 그렇지 않으면 변수명으로 취급
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/73c87a3e-b6f9-434e-abf5-98e5d47986c4/image.png)
+
         
     - 자바스크립트의 문자열은 독특하게 덧셈을 지원함
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/1c381d2f-c2e5-4452-b59a-fe1e7c89f185/image.png)
+
         
     - 백틱(`)으로도 만들 수 있음 - 기본적으로 쌍따옴표로 만든 문자열과 동일하지만, 백틱에서는 달러중괄호(${}), 문자열 안에 변수의 값을 동적으로 집어넣을 수 있음 → 템플릿 리터럴 문법
-        
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/a1d76822-bce9-470e-98c9-43b378831622/image.png)
+
         
 3. Boolean Type
     - ture(참) or false(거짓)만 저장하는 타입
@@ -124,13 +108,10 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
     - Null Type처럼 undefined라는 단 하나의 값만 포함하는 특수한 타입
     - undefined라는 값은 우리가 변수를 선언하고 그 변수에 어떠한 값도 집어넣지 않았을 때 자동으로 할당이 되는 값
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/1d2a67a9-0ea7-466a-845b-2cbcf709e683/image.png)
-        
     - undefined는 진짜 변수를 선언하고 그 값에 어떠한 값도 할당하지 않았을 때 자동으로 들어가는 값,  undefined라는 값은 변수를 미처 초기화하지 못했거나 존재하지 않는 값을 불러오려고 할 때 발생할 수 있는 값 ↔ null이라는 값은 우리가 직접 명시적으로 변수에 할당해줘야 하는 값, null은 프로그래머들이 직접 이 변수에 어떠한 값도 없다를 표현할 때 사용하는 값
 
 1.6) 형 변환
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/047c3a2c-83a3-4906-91b8-1288be11a8a7/image.png)
 
 형 변환이란?
 
@@ -138,7 +119,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 - 어떤 값의 타입을 다른 타입으로 변경하는 것을 말함
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/18ce2ba7-5ce7-472d-9b83-d67ff1d061b9/image.png)
 
 형 변환 종류
 
@@ -149,8 +129,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 2. 명시적 형 변환
     1. 묵시적 형 변환과 반대로, 명시적으로 내가 어떤 타입으로 이 값을 바꿔줘라는 명령을 통해서 값의 타입이 변경되는 것을 말함
     2. 내가 시켜야만 바뀜
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/9a628e87-379a-410c-a518-003665e9caf6/image.png)
 
 ⇒ 숫자 10과 문자열 20을 더하면 묵시적으로 숫자 10을 문자열 10으로 바꿔서 덧셈을 진행함
 
@@ -198,8 +176,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 - 특정 조건을 만족했을 때에만 실행되는 코드를 작성하기 위한 문법
 - 대표적으로 if, switch 조건문이 존재함
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/e55c14e3-4954-49d0-867c-1b6a40530365/image.png)
-
 1. if 조건문 (if문)
     - 복잡한 여러 개의 조건을 이용하고 싶을 때, if문 이용
     - if 문은 꼭 if로 시작
@@ -219,10 +195,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 반복문 (Loop, Iteration)
 
 - 어떠한 동작을 반복해서 수행할 수 있도록 만들어 주는 문법
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/9978a444-e7c6-4265-be02-0166634e4b7c/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/696040a9-8778-421e-8de2-07ae32aac254/image.png)
 
 반복문을 사용 → 동일한 기능을 쉽게 만들어낼 수 있음
 
@@ -252,10 +224,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 - 향후 코드를 수정하거나 유지보수할 때 큰 문제가 될 수 있음
 
 ⇒ 함수로 해결 가능
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/26b0d024-ae0d-465b-bef6-d650f5827cf1/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/7234c5a6-2c48-4516-8d29-84c42e969bdf/image.png)
 
 - 함수 선언: 함수를 새롭게 만드는 행위
 
@@ -310,8 +278,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 - 자신이 아닌 다른 함수에, 인수로써 전달된 함수를 의미함
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/9c20c1cd-c6e7-411c-a8ca-eb1a4f9e00c4/image.png)
-
 - sub 함수 → Callback 함수
 - 어떠한 함수를 다른 함수의 인수로 전달해서 나중에 호출시키도록, 해당 함수에서 알아서 호출하도록 설정한 sub와 같은 함수를 콜백함수라고 부름
 - 콜백 → 프로그래밍에서는 “뒷전에 실행되는” 또는 “나중에 실행되는”이라는 뜻으로 쓰임
@@ -327,10 +293,6 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
 - 우리말로 “범위”를 뜻함
 - 변수나 함수에 접근하거나 호출할 수 있는 범위를 말함
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/ecf97574-8054-459d-90b7-9cb441cd42b5/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2845e18e-51b8-493f-8f5f-4fe35fa45ebf/712194c5-3feb-4a7c-a7af-bd9031740197/image.png)
 
 - 변수가 선언된 함수나 조건문이나 반복문 같은 중괄호를 이용해서 만들어진 블록 내부에서는 변수에 접근할 수 있지만, 그렇지 않은 영역에서는 접근할 수가 없다.
 - 변수에 접근할 수 있는 영역을 스코프라고 부르고, 변수 a는 funcA라는 지역적인 스코프를 갖는다고 표현할 수 있다.
