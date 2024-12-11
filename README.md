@@ -353,11 +353,20 @@ vs code 아래에 Port를 누르면 Live Server가 종료됨
 
     
     3.2 새로운 프로퍼티를 추가하는 방법
-    
 
-    
+    ```jsx
+    // 3.2 새로운 프로퍼티를 추가하는 방법
+    person.job = "fe developer" 
+    person["favoriteFood"] = "떡볶이"
+    ```
+
     3.3 프로퍼티를 수정하는 방법
 
+    ```jsx
+    // 3.3 프로퍼티를 수정하는 방법
+    person.job = "educator" 
+    person["favoriteFood"] = "초콜릿"
+    ```
     
     3.4 프로퍼티를 삭제하는 방법
     
