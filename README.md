@@ -485,6 +485,20 @@
 
 1. **Falsy 한 값**
     - JavaScript에는 총 7가지의 Falsy 한 값 존재
+    ```jsx
+    // 1. Falsy 한 값
+    let f1 = undefined
+    let f2 = null
+    let f3 = 0
+    let f4 = -0
+    let f5 = NaN
+    let f6 = ""
+    let f7 = 0n
+
+    if (!f1) {
+        console.log("falsy")    // falsy
+    }
+    ```
     - 조건문에서 거짓으로 평가됨
     - 0n → big integer라는 특수한 자료형에 해당하는 값
         - 아주 아주 큰 숫자를 저장하는데 사용되는 값
