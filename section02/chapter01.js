@@ -37,4 +37,6 @@ function printName(person) {
 }
 
 let person = null
+let person2 = {name: "이정환"}
 printName(person)   // person의 값이 없음
+printName(person2)   // 이정환
