@@ -514,3 +514,37 @@
     - 변수가 undefined → undefined의 프로퍼티는 읽을 수 없음 → 오류 발생
     - 매개변수로 객체를 받을 것이라고 생각했는데 실제로는 undefined의 값이 들어오는 상황은 실제 서비스를 개발하다 보면 정말 자주 발생하는 상황 → 객체의 특정 프로퍼티에 접근하는 기능을 담고 있는 함수에서는 보통 조건문으로 매개변수의 값이 null이나 undefined이 아님을 먼저 확인해줘야 함
     - 복잡한 조건문 → 비효율적 ⇒ falsy를 이용해 조건문 개선
+
+
+### **2.2) 단락 평가**
+
+**단락 평가(Short-circuit Evaluation)란?**
+
+- and나 or 같은 논리 연산식에서 첫 번째 피연산자 값만으로도 해당 연산의 결과를 확정할 수 있다면 두 번째 피연산자에는 접근조차 하지 않는 실행 방식
+
+
+1. **AND 연산자**
+    - 첫 번째 피연산자 값이 false라면 두 번째 피연산자 값이 무엇이든 항상 false
+    - 첫 번째 값이 true라면 두 번째 값이 true인지 false인지에 따라 연산 결과가 달라지기 때문에 두 번째 값도 확인해야 함
+2. **OR 연산자**
+    - 첫 번째 피연산자 값이 true라면 두 번째 피연산자 값이 무엇이든 항상 ture
+- 단락 평가를 이용하면 앞으로 조건문을 이용하지 않고도 특정 상황에서 어떠한 함수를 호출하지 않도록 방지하거나 어떠한 값들을 굳이 계산하지 않도록 제한하는 등의 아주 다양한 기능들을 개발할 수 있음
+- 특정 조건에 맞춰서 함수를 아예 호출하지 않도록 방지할 수 있는 기능을 가지고 있다.
+- 단락 평가는 true나 false와 같은 boolean 값 뿐만 아니라 Truthy한 값이나 Falsy한 값에도 당연히 적용이 된다.
+    - 이때, 출력(연산의 결과값)되는 것은 true나 false가 아니라 Truthy한 값 or Falsy한 값 자체
+
+
+- 단락 평가 활용 사례
+    ```jsx
+    // 단락 평가 활용 사례
+    function printName(person) {
+        const name = person && person.name
+        console.log(name || "person의 값이 없음")
+    }
+
+    printName()     // person의 값이 없음
+    printName({ name: "이정환" })    // 이정환
+    ```
+    - person 값이 있을 때
+        - person이 true이기 때문에 person.name 확인 → truthy && truthy일 경우, 두 번째 truthy한 값 저장
+        - name || “person의 값이 없음” → truthy || truthy일 경우, 첫 번째 truthy한 값 반환
