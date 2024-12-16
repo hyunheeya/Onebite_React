@@ -721,3 +721,120 @@
     
     - JavaScript의 배열과 함수는 특수한 객체들이기 때문에 배열과 함수 또한 일반 객체에 존재하는 프로퍼티와 메서드를 다 가지고 있다.
         - 배열과 함수는 사실 객체였고, 그러므로 추가적인 프로퍼티와 메서드를 가질 수 있다라는 사실까지만 알아두기! → 자세한 내용들은 향후 수업에서 다룸
+
+
+---
+### **2.6) 반복문으로 배열과 객체 순회하기**
+
+**순회(Iteration)란?**
+
+- 배열, 객체에 저장된 여러 개의 값에 순서대로 하나씩 접근하는 것을 말함
+    - ex) 배열 순회
+        
+        ```jsx
+        let numbers = [1, 2, 3]
+        ```
+        
+    - ex) 객체 순회
+        
+        ```jsx
+        let person = {
+        	name: "이정환",
+        	age: 27,
+        	hobby: "테니스",
+        }
+        ```
+    
+
+1. **배열 순회**
+    
+    1.1 배열 인덱스
+    
+    ```jsx
+    // 1.1 배열 인덱스
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i])
+    } 
+    /*
+    1
+    2
+    3
+    */
+    
+    let arr2 = [4, 5, 6, 7, 8]
+    for (let i = 0; i < arr2.length; i++) {
+        console.log(arr2[i])
+    }
+    ```
+    
+    - length라는 프로퍼티
+        - 배열의 길이를 저장하고 있는 프로퍼티
+        - 모든 배열이 다 가지고 있는 프로퍼티
+    - 배열이나 객체도 함수이기 때문에 프로퍼티나 메서드를 가질 수 있다.
+    - for문을 이용하면 특정 배열을 순회할 수 있다.
+    - 카운터 변수에 인덱스가 저장되기 때문에 인덱스를 통한 활동을 할 수 있다.
+    
+    1.2 for of 반복문
+    
+    ```jsx
+    // 1.2 for of 반복문
+    for (let item of arr) {
+        console.log(item)
+    }
+    ```
+    
+    - 오직 배열을 순회하기 위해서만 존재하는 특수한 반복문
+    - 인덱스를 저장하지 않고 배열 안에 있는 값들을 순서대로 순회만 해줌 → 인덱스 활용 X
+    
+2. **객체 순회**
+    
+    2.1 Object.keys 사용 
+    
+    - 객체에서 key 값들만 뽑아서 새로운 배열로 반환해주는 내장함수
+    
+    ```jsx
+    // 2.1 Object.keys 사용
+    // -> 객체에서 key 값들만 뽑아서 새로운 배열로 반환
+    let keys = Object.keys(person)
+    // console.log(keys)   // ['name', 'age', 'hobby']
+    
+    for (let i = 0; i < keys.length; i++) {
+        console.log(keys)
+    }
+    
+    for (let key of keys) {
+        const value = person[key]
+        console.log(key, value)
+    }
+    ```
+    
+    2.2 Object.values 사용
+    
+    - 객체에서 value 값들만 뽑아서 새로운 배열로 반환
+    
+    ```jsx
+    // 2.2 Object.values 사용
+    // -> 객체에서 value 값들만 뽑아서 새로운 배열로 반환
+    let values = Object.values(person)
+    // console.log(values)   // ['이정환', 27, '테니스']
+    
+    for (let value of values) {
+        console.log(value)
+    }
+    ```
+    
+    2.3 for in
+    
+    - 객체만을 위해 존재하는 특수한 반복문
+    
+    ```jsx
+    // 2.3 for in 
+    for (let key in person) {
+        const value = person[key]
+        console.log(key, value)
+    }
+    ```
+    
+    **※주의※**
+    
+    **for of** → **배열**에만 사용 가능, **for in** → **객체**에만 사용 가능
