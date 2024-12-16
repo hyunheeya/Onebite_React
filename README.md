@@ -838,3 +838,99 @@
     **※주의※**
     
     **for of** → **배열**에만 사용 가능, **for in** → **객체**에만 사용 가능
+
+
+
+---
+### **2.7) 배열 메서드 1. 요소 조작**
+
+**6가지의 요소 조작 메서드**
+
+1. **push**
+    - 배열의 맨 뒤에 새로운 요소를 추가하는 메서드
+    - 요소들을 추가하고 난 다음에 변환된 배열의 길이를 반환한다.
+    
+    ```jsx
+    // 1. push 
+    // 배열의 맨 뒤에 새로운 요소를 추가하는 메서드
+    let arr1 = [1, 2, 3]
+    const newLength = arr1.push(4, 5, 6, 7)
+    
+    console.log(arr1)       // [1, 2, 3, 4, 5, 6, 7]
+    console.log(newLength)  // 7
+    ```
+    
+2. **pop**
+    - 배열의 맨 뒤에 있는 요소를 제거하고, 반환
+    
+    ```jsx
+    // 2. pop
+    // 배열의 맨 뒤에 있는 요소를 제거하고, 반환
+    let arr2 = [1, 2, 3]
+    const popedItem = arr2.pop()
+    
+    console.log(popedItem)  // 3
+    console.log(arr2)       // [1, 2]
+    ```
+    
+3. **shift**
+    - 배열의 맨 앞에 있는 요소를 제거, 반환
+    
+    ```jsx
+    // 3. shift
+    // 배열의 맨 앞에 있는 요소를 제거, 반환
+    let arr3 = [1, 2, 3]
+    const shiftedItem = arr3.shift()
+    console.log(shiftedItem, arr3)  // 1 [2, 3]
+    ```
+    
+4. **unshift**
+    - 배열의 맨 앞에 새로운 요소를 추가하는 메서드
+    - push처럼 요소들을 추가하고 난 다음에 변환된 배열의 길이를 반환한다.
+    
+    ```jsx
+    // 4. unshift
+    // 배열의 맨 앞에 새로운 요소를 추가하는 메서드
+    let arr4 = [1, 2, 3]
+    const newLength2 = arr4.unshift(0)
+    console.log(newLength2, arr4)   // 4 [0, 1, 2, 3]
+    ```
+    
+
+- **shift & unshift** → push & pop보다 **비교적 느리게 동작**
+    - 인덱스를 한칸씩 옮겨야 함
+    - 비효율적인 방식으로 동작
+    - 되도록이면 push & pop을 통해 해결하는 게 좋다.
+
+5. **slice**
+       
+    - 마치 가위처럼, 배열의 특정 범위를 잘라내서 새로운 배열로 반환
+
+    ```jsx
+    // 5. slice
+    // 마치 가위처럼, 배열의 특정 범위를 잘라내서 새로운 배열로 반환
+    let arr5 = [1, 2, 3, 4, 5]
+    let sliced = arr5.slice(2, 5)
+    let sliced2 = arr5.slice(2)
+    let sliced3 = arr5.slice(-2)    // 뒤에서부터 2개 잘라라
+    console.log(sliced)     // [3, 4, 5]
+    console.log(sliced2)    // [3, 4, 5]
+    console.log(sliced3)    // [4, 5]
+    ```
+    
+    - slice(자르기 시작하는 인덱스, 잘라낼 범위의 끝의 인덱스 + 1)
+    - 원본 배열의 값은 변하지 않는다.
+    - 두 번째 인수를 생략하면 끝까지 자르라는 뜻
+    - 뒤에서부터 자르고 싶다 → 음수 사용
+    
+6. **concat**
+    - 두 개의 서로 다른 배열을 이어 붙여서 새로운 배열을 반환
+    ```jsx
+    // 6. concat
+    // 두 개의 서로 다른 배열을 이어 붙여서 새로운 배열을 반환
+    let arr6 = [1, 2]
+    let arr7 = [3, 4]
+
+    let concatedArr = arr6.concat(arr7) // arr6 뒤에 arr7 배열이 붙어서 새로운 배열로 반환
+    console.log(concatedArr)    // [1, 2, 3, 4]
+    ```
