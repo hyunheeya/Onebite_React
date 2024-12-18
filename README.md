@@ -1255,3 +1255,102 @@
 
 
 ---
+### **2.10) Date 객체와 날짜**
+
+1. **Date 객체를 생성**하는 방법
+    - new라는 키워드와 함께 새로운 객체를 생성하는 내장함수들을 생성자라고 부름
+    - Date 객체는 생성자 함수에 아무런 인수를 전달하지 않고 생성하게 되면 현재 지금 시간을 저장하는 date 객체로 생성이 된다.
+    - 특정 날짜나 특정 시간을 기준으로 새롭게 생성하고 싶다면, 생성자에 인수로 특정 날짜를 넣어주면 된다.
+        - 문자열로 명시한 날짜의 형식은 대시(-), 점(.), 슬래시(/) 사용 가능
+        - 시간은 “시:분:초” 형식
+    - 인수로는 문자열 말고 숫자도 가능(콤마로 구분)
+        - JavaScript의 Date 객체에서 월(month)을 나타내는 숫자는 0부터 시작하는 인덱스 체계를 사용 → ex) 1을 입력했을 때 2월(February)이 출력
+    
+    ```jsx
+    // 1. Date 객체를 생성하는 방법
+    let date1 = new Date()  // 생성자
+    console.log(date1)  // Thu Dec 19 2024 01:31:53 GMT+0900 (한국 표준시)
+    
+    let date2 = new Date("1997-01-07")
+    console.log(date2)  // Tue Jan 07 1997 09:00:00 GMT+0900 (한국 표준시)
+    
+    let date2_time = new Date("1997/01/07/10:10:10")
+    console.log(date2_time) // Tue Jan 07 1997 10:10:10 GMT+0900 (한국 표준시)
+    
+    let date2_number = new Date(1997, 1, 7, 23, 59, 59)
+    console.log(date2_number)   // Fri Feb 07 1997 23:59:59 GMT+0900 (한국 표준시)
+    ```
+    
+
+2. **타임 스탬프**
+    - 특정 시간이 “1970.01.01 00시 00분 00초”로부터 몇 ms가 지났는지를 의미하는 숫자값
+        - 기준이 되는 시각(“1970.01.01 00시 00분 00초”): 협정 세계시, UTC → 세계 모든 나라가 표준으로 사용하는 시간이 시작되는 지점
+    - 복잡한 시간 정보를 숫자로 관리할 수 있도록 해주기 때문에 굉장히 편리해서 이곳저곳에 자주 사용이 된다.
+    - getTime 이라는 메서드는 date 객체 안에 저장되어 있는 시간에 해당하는 타임 스탬프를 계산해서 반환해준다.
+    - 새로운 date 객체를 생성하는 데에도 이용된다.
+        - 새로운 date 객체를 생성하면서 인수로 타임 스탬프 값을 전달해주게 되면, 타임 스탬프에 해당하는 시간으로 date 객체가 생성된다.
+    - 꽤나 복잡한 형태를 가지고 있는 시간 정보를 간단한 숫자로 표현할 수 있기 때문에 서비스를 개발하는 과정에서도 타임 스탬프가 자주 사용이 된다.
+    
+    ```jsx
+    // 2. 타임 스탬프
+    let ts1 = date1.getTime()
+    console.log(ts1)
+    
+    let date3 = new Date(ts1)
+    console.log(date1, date3)   // Thu Dec 19 2024 01:49:38 GMT+0900 (한국 표준시) Thu Dec 19 2024 01:49:38 GMT+0900 (한국 표준시)
+    ```
+    
+
+3. **시간 요소들을 추출하는 방법**
+    
+    ```jsx
+    // 3. 시간 요소들을 추출하는 방법
+    let year = date1.getFullYear()
+    let month = date1.getMonth() + 1    // js의 월은 0부터 시작하기 때문
+    let date = date1.getDate()
+    
+    let hour = date1.getHours()
+    let minute = date1.getMinutes()
+    let seconds = date1.getSeconds()
+    
+    console.log(
+        year,
+        month,
+        date,
+        hour,
+        minute,
+        seconds
+    )
+    /*
+    2024 12 19 1 57 15
+    */
+    ```
+    
+
+4. **시간 수정하기**
+    - 수정하고 싶은 숫자를 인수로 넘겨주면 된다.
+    
+    ```jsx
+    // 4. 시간 수정하기
+    date1.setFullYear(2023)
+    date1.setMonth(2)
+    date1.setDate(30)
+    date1.setHours(23)
+    date1.setMinutes(59)
+    date1.setSeconds(59)
+    
+    console.log(date1)    // Thu Mar 30 2023 23:59:59 GMT+0900 (한국 표준시)
+    ```
+    
+
+5. **시간을 여러 포맷으로 출력하기**
+    - 시, 분, 초를 제외하고 날짜만 출력 → toDateString()
+    - 영어 포맷 말고 우리나라에서 사용하는 현지화된 포맷으로 출력 → toLocaleString()
+        - toLocaleString 메서드에 인수를 넣지 않으면 시스템의 기본 로케일 설정을 따라 출력된다.
+        - 우리나라에서 사용하는 컴퓨터나 브라우저의 경우, 대부분 한국어(ko-KR) 로케일이 기본으로 설정되어 있기 때문에 한국 형식으로 출력된다.
+
+    ```jsx
+    // 5. 시간을 여러 포맷으로 출력하기
+    console.log(date1.toDateString())     // Thu Mar 30 2023
+    console.log(date1.toLocaleString())   // 2023. 3. 30. 오후 11:59:59
+    ```
