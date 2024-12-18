@@ -934,3 +934,133 @@
     let concatedArr = arr6.concat(arr7) // arr6 뒤에 arr7 배열이 붙어서 새로운 배열로 반환
     console.log(concatedArr)    // [1, 2, 3, 4]
     ```
+
+
+---
+### **2.8) 배열 메서드 2. 순회와 탐색**
+
+**5가지 요소 순회 및 탐색 메서드**
+
+1. **forEach**
+    - 모든 요소를 순회하면서, 각각의 요소에 특정 동작을 수행시키는 메서드
+    - 배열의 요소들을 마치 반복문처럼 순회하면서 매 반복마다 콜백함수를 호출하고 매개변수로 현재 요소의 값과 현재 반복 카운트와 전체 배열의 값을 전달해주게 된다.
+    - 콜백함수는 배열의 요소의 개수만큼 호출이 된다.
+    - 배열의 요소들을 순회하면서 콜백함수로 해당 요소를 가지고 다양한 동작들을 수행하도록 만들어줄 수 있어서 앞으로도 우리가 꽤나 자주 이용하게 될 메서드이다.
+    
+    ```jsx
+    // 1. forEach
+    // 모든 요소를 순회하면서, 각각의 요소에 특정 동작을 수행시키는 메서드
+    let arr1 = [1, 2, 3]
+    
+    arr1.forEach(function (item, idx, arr) {
+        console.log(idx, item * 2)
+    })
+    /*
+    0 2
+    1 4
+    2 6
+    */
+    
+    let doubleArr = []
+    arr1.forEach((item) => {
+        doubleArr.push(item * 2)
+    })
+    console.log(doubleArr)  // [2, 4, 6]
+    ```
+    
+
+2. **includes**
+    - 배열에 특정 요소가 있는지 확인하는 메서드
+    
+    ```jsx
+    // 2. includes
+    // 배열에 특정 요소가 있는지 확인하는 메서드
+    let arr2 = [1, 2, 3]
+    let isInclude = arr2.includes(10)
+    
+    console.log(isInclude)  // false
+    ```
+    
+
+3. **indexOf**
+    - 특정 요소의 인덱스(위치)를 찾아서 반환하는 메서드
+    - 찾으려는 요소가 배열에 **여러 개 존재**한다면, indexOf는 배열의 앞에서부터 탐색을 시작하기 때문에 **가장 첫 번째로 찾아낸 요소의 인덱스**를 반환하게 됨
+    - **존재하지 않는 요소의 인덱스** → 존재하지 않는다는 의미로 **-1** 반환
+    
+    ```jsx
+    // 3. indexOf
+    // 특정 요소의 인덱스(위치)를 찾아서 반환하는 메서드
+    let arr3 = [1, 2, 3]
+    let arr3_2 = [2, 2, 2]
+    let index = arr3.indexOf(2)
+    let index2 = arr3_2.indexOf(2)
+    let index3 = arr3_2.indexOf(20)
+    console.log(index)   // 1
+    console.log(index2)  // 0
+    console.log(index3)  // -1
+    ```
+    
+
+4. **findIndex**
+    - 모든 요소를 순회하면서, 콜백함수를 만족하는 그런 특정 요소의 인덱스(위치)를 반환하는 메서드
+    - 순회하면서 가장 처음으로 콜백함수를 만족하는 요소의 위치를 찾아서 그 요소의 인덱스를 반환
+    - 화살표 함수보다 더 간단한 표현식 → 함수가 연산식의 결과를 반환함 - true or false → item의 값이 2로 나누어 떨어지지 않을 때 true 반환하고 그렇지 않을 때는 false를 반환
+    - 조건문을 만족하는 요소가 배열에 존재하지 않는다면, -1 반환
+    - findIndex가 존재하는 이유
+        - indexOf라는 메서드는 배열에 원시타입의 값이 들어있을 때가 아니라 객체타입의 값들이 저장된 배열에서는 정확한 요소의 위치를 찾아낼 수 없기 때문
+            - indexOf는 기본적으로 얕은 비교로 동작 → 동등 비교 연산자(===)로 비교
+            - 객체값들은 참조값을 기준으로 비교된다.
+            - 프로퍼티를 기준으로 비교가 이루어지지 않는다.
+            - 그렇기 때문에 indexOf로는 배열에서 특정 개체값이 존재하는지는 찾아낼 수 없다.
+        - ⇒ 이럴 때 findIndex 이용!
+        - findIndex는 콜백함수를 이용해서 우리가 직접 특정 프로퍼티의 값을 기준으로 비교시킬 수 있기 때문에 복잡한 객체값도 조건식만 잘 만들어주면 쉽게 찾아낼 수 있다는 장점이 있다.
+        - 단순한 원시타입의 값을 찾을 때는 indexOf, 복잡한 객체 타입의 값을 찾을 땐 findIndex를 쓰면 좋다.
+    
+    ```jsx
+    // 4. findIndex
+    // 모든 요소를 순회하면서, 콜백함수를 만족하는 그런
+    // 특정 요소의 인덱스(위치)를 반환하는 메서드
+    let arr4 = [1, 2, 3]
+    const findedIndex = arr4.findIndex((item) => {
+        if (item % 2 !== 0) return true
+    })
+    
+    // 화살표 함수를 더 간단하게
+    const findedIndex2 = arr4.findIndex((item) => item % 2 !== 0)
+    
+    console.log(findedIndex)    // 0
+    
+    let objectArr = [
+        { name: "이정환"},
+        { name: "홍길동"},
+    ]
+    
+    console.log(
+        objectArr.indexOf({ name: "이정환"})    // -1
+    ) 
+    
+    console.log(
+        objectArr.findIndex(
+            (item) => item.name === "이정환"    // 0
+        )
+    )
+    ```
+    
+
+5. find
+    - 모든 요소를 순회하면서 콜백함수를 만족하는 요소를 찾는데, 요소를 그대로 반환
+    ```jsx
+    // 5. find
+    // 모든 요소를 순회하면서 콜백함수를 만족하는 요소를 찾는데, 요소를 그대로 반환
+
+    let arr5 = [
+        { name: "이정환"},
+        { name: "홍길동"},
+    ]
+
+    const finded = arr5.find(
+        (item) => item.name === "이정환"
+    )
+
+    console.log(finded)     // {name: '이정환'}
+    ```
