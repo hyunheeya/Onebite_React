@@ -1047,7 +1047,7 @@
     ```
     
 
-5. find
+5. **find**
     - 모든 요소를 순회하면서 콜백함수를 만족하는 요소를 찾는데, 요소를 그대로 반환
     ```jsx
     // 5. find
@@ -1064,3 +1064,158 @@
 
     console.log(finded)     // {name: '이정환'}
     ```
+
+
+---
+### **2.9) 배열 메서드 3. 배열 변형**
+
+**5가지 배열 변형 메서드**
+
+1. **fileter**
+    - 기존 배열에서 조건을 만족하는 요소들만 필터링하여 새로운 배열로 반환
+    - find나 findIndex 메서드처럼 콜백함수를 이용해서 배열의 **모든 요소들을 순회**하면서 **조건을 만족하는 값들만 새로운 배열**로 반환
+    - 웹서비스를 개발할 때, 특정 조건에 의해서 검색시키는 기능이나 카테고리별 필터 기능을 만드는데 거의 필수적으로 사용된다.
+    - 매개변수로 item, idx, arr을 전달 받는다.
+    
+    ```jsx
+    // 1. filter
+    // 기존 배열에서 조건을 만족하는 요소들만 필터링하여 새로운 배열로 반환
+    
+    let arr1 = [
+        { name: "이정환", hobby: "테니스"},
+        { name: "김효빈", hobby: "테니스"},
+        { name: "홍길동", hobby: "독서"},
+    ]
+    
+    const tennisPeople = arr1.filter(
+        (item) => item.hobby === "테니스"
+    )
+    
+    console.log(tennisPeople)
+    /*
+    0
+    : 
+    {name: '이정환', hobby: '테니스'}
+    1
+    : 
+    {name: '김효빈', hobby: '테니스'}
+    length
+    : 
+    2
+    [[Prototype]]
+    : 
+    Array(0)
+    */
+    ```
+    
+
+2. **map**
+    - 배열의 모든 요소를 순회하면서, 각각 콜백함수를 실행하고 그 결과값들을 모아서 새로운 배열로 반환
+    - 프론트 분야에서 뗄레야 뗄 수 없을 정도로 자주 활용되는 메서드
+    - forEach 메서드와 동일하게 동작하나, 콜백함수 안에서 반환값을 설정해줄 수도 있다.
+    - 원본 배열의 값들을 변형한 새로운 배열을 생성할 수 있다.
+    
+    ```jsx
+    // 2. map
+    // 배열의 모든 요소를 순회하면서, 각각 콜백함수를 실행하고 그 결과값들을 모아서 새로운 배열로 반환
+    let arr2 = [1, 2, 3]
+    const mapResult1 = arr2.map((item, idx, arr) => {
+        return item * 2
+    })
+    console.log(mapResult1)     // [2, 4, 6]
+    
+    let names = arr1.map((item) => item.name)
+    console.log(names)      // ['이정환', '김효빈', '홍길동']
+    ```
+    
+
+3. **sort**
+    - 배열을 **사전 순으로 정렬**하는 메서드
+    - 배열의 값이 문자열로 이루어져 있는 게 아니라, 숫자값으로 이루어진 배열이라면 sort 메서드가 정상적으로 동작하지 않는다.
+        - 숫자의 대소 비교를 통해 정렬 X → 사전 순으로 정렬
+        - 숫자의 대소 관계를 통해 정렬하고 싶다면, sort 메서드를 호출하면서 비교 기준을 설정하는 콜백함수도 함께 넘겨줘야 한다.
+        - 콜백함수에서는 두 개의 배열 요소를 a와 b로 받아서 두 개의 배열 요소를 비교할 때 뭐가 더 크고 뭐가 더 작은 값이라고 판단할 건지 이 함수 안에 다 설정해줘야 한다.
+            - if 조건문에서 **양수** 반환 → **a를 b 뒤로 정렬**
+            - **음수** 반환 → **a를 b 앞으로 정렬**
+            - **0** 반환 → a, b 자리를 **그대로 유지**
+    
+    ```jsx
+    // 3. sort
+    // 배열을 사전 순으로 정렬하는 메서드
+    let arr3 = ["b", "a", "c"]
+    let arrNumber = [10, 3, 5]
+    arr3.sort()
+    arrNumber.sort()
+    
+    console.log(arr3)         // ['a', 'b', 'c']
+    console.log(arrNumber)    // [10, 3, 5]
+    
+    // 오름차순
+    arrNumber.sort((a, b) => {
+        if (a > b) {
+            // b가 a 앞에 와라
+            return 1    // -> b, a 배치
+        } else if (a < b) {
+            // a가 b 앞에 와라
+            return -1   // -> a, b 배치
+        } else {
+            // 두 값의 자리를 바꾸지 마라
+            return 0    // -> a, b 자리를 그대로 유지
+        }
+    })
+    
+    console.log(arrNumber)    // [3, 5, 10]
+    
+    // 내림차순 
+    arrNumber.sort((a, b) => {
+        if (a > b) {
+            // b가 a 앞에 와라
+            return -1    // -> a, b 배치
+        } else if (a < b) {
+            // a가 b 앞에 와라
+            return 1   // -> b, a 배치
+        } else {
+            // 두 값의 자리를 바꾸지 마라
+            return 0    // -> a, b 자리를 그대로 유지
+        }
+    })
+    
+    console.log(arrNumber)    // [10, 5, 3]
+    
+    ```
+    
+
+4. **toSorted**
+    - sort와 똑같이 배열을 사전 순으로 정렬
+    - sort는 원본 배열 자체를 정렬시키는 메서드이지만, toSorted 메서드는 원본 배열은 놔두고 정렬된 새로운 배열을 반환하는 메서드
+    - 가장 최근에 추가된 최신 함수
+    
+    ```jsx
+    // 4. toSorted (가장 최근에 추가된 최신 함수)
+    // 정렬된 새로운 배열을 반환하는 메서드
+    let arr5 = ["c", "a", "b"]
+    const sorted = arr5.toSorted()
+    
+    console.log(arr5)   // ['c', 'a', 'b']
+    console.log(sorted) // ['a', 'b', 'c']
+    ```
+    
+
+5. **join**
+    - 배열의 모든 요소를 하나의 문자열로 합쳐서 반환하는 메서드
+    - 콤마 = seperator(구분자): 배열의 요소와 요소 사이에 들어가는 문자 → 기본이 콤마
+    - 구분자를 바꾸고 싶다면 join 메서드의 인수로 바꾸고 싶은 구분자를 넣으면 된다.
+        - “-”
+        - “|”
+        - “”(빈 문자열)
+        - “ “(공백)
+    ```jsx
+    // 5. join
+    // 배열의 모든 요소를 하나의 문자열로 합쳐서 반환하는 메서드
+    let arr6 = ["hi", "im", "winterlood"]
+    const joined = arr6.join()
+    console.log(joined)   // hi,im,winterlood
+    ```
+
+
+
