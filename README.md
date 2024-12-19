@@ -1616,3 +1616,82 @@
     ```
     
     - API를 호출 or 다른 서버와의 통신 등 → promise 객체가 굉장히 활발하게 사용된다.
+
+
+
+---
+### **2.14) 비동기 작업 처리하기 3. Async&Await**
+
+**Async란?**
+
+- 함수 앞에 붙이는 키워드
+- 어떤 함수를 비동기 함수로 만들어주는 키워드
+- 함수가 promise를 반환하도록 변환해주는 키워드
+
+```jsx
+// async
+
+// 서버로부터 유저의 데이터를 받아오는 함수
+async function getData() {
+    return {
+        name: "이정환",
+        id: "winterlood",
+    }
+}
+// async -> 객체를 그대로 반환하는 함수가 아니라, 
+// 이 객체를 결과값으로 갖는 새로운 promise를 반환하는 함수로 변환됨
+
+console.log(getData())  
+/* 
+Promise {<fulfilled>: {…}}
+[[Prototype]]
+: 
+Promise
+[[PromiseState]]
+: 
+"fulfilled"
+[[PromiseResult]]
+: 
+Object
+*/
+```
+
+- 애초에 비동기 함수를 반환하도록 하는 함수였다면, async의 키워드가 별다른 일을 하지 않고 promise가 반환되도록 내버려둔다.
+
+```jsx
+// async
+async function getData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                name: "이정환",
+                id: "winterlood",
+            })
+        }, 1500);
+    })
+}
+
+console.log(getData())  
+```
+
+- async는 promise를 반환하지 않는 함수에 붙여서 자동으로 해당 함수를 비동기로 작동하도록 변환하는 기능을 한다.
+- await이랑 같이 사용했을 때 그 위력이 제대로 발휘가 된다.
+
+**Await이란?**
+
+- async 함수 내부에서만 사용이 가능한 키워드 → async가 붙지 않은 함수에서 사용하면 오류 발생
+- 비동기 함수가 다 처리되기를 기다리는 역할 → 결과값 반환
+- then 메서드를 사용하지 않아도 된다.
+
+```jsx
+// await
+
+async function printData() {
+    const data = await getData()
+    console.log(data)
+}
+
+printData()     // {name: '이정환', id: 'winterlood'}
+```
+
+- **async와 await을 이용하면 비동기 작업을 마치 동기 작업을 처리하듯이 아주 간결한 코드로 실행할 수 있다.**
