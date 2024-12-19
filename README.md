@@ -1448,3 +1448,171 @@
     ```
     
     - 기능이 늘어날수록 인덴트(들여쓰기)가 점점 깊어지는 형태 → 가독성이 점점 안 좋아진다. ⇒ 콜백 지옥 ⇒ 비동기 작업을 도와주는 객체인 **promise**를 이용
+
+
+
+---
+### **2.13) 비동기 작업 처리하기 2. Promise**
+
+**Promise란?**
+
+- 비동기 작업을 효율적으로 처리할 수 있도록 도와주는 JavaScript의 내장 객체
+- setTimeout()과 같은 비동기 작업들을 감싸는(wrapping) 객체
+
+
+- 감싸고 있는 비동기 작업을 실행시켜주거나 현재 상태를 관리하거나 또는 비동기 작업의 결과를 저장해주거나 심지어는 여러 개의 작업을 병렬로 동시에 실행시켜준다거나 다시 실행시켜주는 등 비동기 작업을 처리하는데 필요한 거의 모든 기능을 다 제공해주는 객체
+
+
+- Promise는 진행 단계에 따라서 3가지의 형태로 나눠서 관리한다.
+    - **대기(Pending)**: 아직 비동기 작업이 진행 중인 , 아직 작업이 완료되지 않은 상태
+    - **성공(Fulfilled)**: 비동기 작업이 별다른 오류 없이 성공적으로 마무리된 상태
+    - **실패(Rejected)**: 비동기 작업이 모종의 이유로 실패한 상태
+
+    
+    - 해결(resolve): 어떤 비동기 작업이 대기 상태였다가 성공 상태로 바뀌는 것
+    - 거부(reject): 대기 상태였다가 실패 상태로 바뀌는 것
+    - Ex) 유튜브
+        - 유튜브 영상 로딩 → 대기 상태
+        - 영상 로딩 완료 → 해결
+        - 시청 가능한 자체 → 성공 상태
+        - 영상 로딩 실패 → 거부
+        - 시청 불가능한 상태 → 실패 상태
+- Promise 객체는 생성자(new Promise()) 이용
+    - 생성자의 인수로는 비동기 작업을 실제로 진행할 콜백함수를 넣어주면 된다.
+    - 콜백함수 안에 비동기 작업을 진행할 코드를 작성하면 promise 객체가 생성됨과 동시에 자동으로 콜백함수를 호출해서 안에 있는 비동기 작업들을 실행 ⇒ 이 콜백함수를 실제로 비동기 작업을 실행하는 함수라는 뜻에서 executor라고 부른다
+    
+    ```jsx
+    const promise = new Promise(() => {
+        // 비동기 작업 실행하는 함수
+        // executor
+    
+        setTimeout(() => {
+            console.log("안녕")
+        }, 2000);
+    })
+    
+    console.log(promise)    // promise 객체 -> 대기 상태, 결과값 -> undefined
+    ```
+    
+    - executor 함수에는 두 가지(resolve, reject)의 매개변수가 전달된다.
+        - resolve라는 첫 번째 매개변수에는 promise(비동기) 작업을 성공 상태로 바꾸는 함수가 들어있고, reject라는 두 번째 매개변수에는 promise가 관리하는 비동기 작업을 실패 상태로 바꾸는 함수가 들어있다.
+    - executor에서 실행하는 비동기 작업이 성공했다고 알리고 싶다면 resolve 함수를 호출하면 된다.
+        - 결과값은 executor 함수 내부에서 resolve 함수를 호출하면서 인수로 전달해줘야 한다.
+        - 아무것도 전달하지 않으면 undefined
+        
+        ```jsx
+        const promise = new Promise((resolve, reject) => {
+            // 비동기 작업 실행하는 함수
+            // executor
+        
+            setTimeout(() => {
+                console.log("안녕")
+                resolve("안녕")
+            }, 2000);
+        })
+        
+        setTimeout(() => {
+            console.log(promise)    // promise 객체 -> 성공 상태("fulfilled"), 결과값 -> "안녕"
+        }, 3000)
+        ```
+        
+    - reject 함수 → 오류 메세지 먼저 출력
+        - executor 함수에서 reject를 호출하게 되면 promise의 비동기 작업이 실패하게 되는 것이다.
+        - 인수로 promise의 결과값을 전달해줄 수 있다.
+        
+        ```jsx
+        const promise = new Promise((resolve, reject) => {
+        
+            setTimeout(() => {
+                console.log("안녕")
+                reject("왜 실패했는지 이유...")
+            }, 2000);
+        })
+        
+        setTimeout(() => {
+            console.log(promise)    // promise 객체 -> 실패 상태("rejected"), 결과값 -> "왜 실패했는지 이유..."
+        }, 3000)
+        ```
+        
+    - then 메서드
+        - executor 함수에서 resolve를 호출하게 되면 그 후에 then 메서드에 전달한 콜백함수를 실행시켜준다. 동시에 resolve에 전달한 결과값을 매개변수로까지 제공해준다.
+        - promise로 관리하는 비동기 작업의 결과값을 언제든지 자유롭게 불러서 이용 가능
+        - reject가 호출되어서 실패한다면, then 메서드는 실행되지 않는다 → then 메서드는 promise의 비동기 작업이 성공했을 때만 호출되는 메서드이기 때문 ⇒ catch 메서드 사용
+    - catch 메서드
+        - 실패 버전의 then 메서드
+        - 인수로 콜백함수를 전달 → promise가 실패했을 때 콜백함수를 실행시켜준다.
+        - 매개변수로 결과값까지 제공해준다.
+    
+    ```jsx
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const num = null
+    
+            if (typeof num === "number") {
+                resolve(num + 10)
+            } else {
+                reject("num이 숫자가 아닙니다.")
+            }
+        }, 2000);
+    })
+    
+    // then 메서드
+    // -> 그 후에
+    promise.then((value) => {
+        console.log(value)
+    })
+    
+    promise.catch((error) => {
+        console.log(error)  // num이 숫자가 아닙니다.
+    })
+    
+    // 위 코드와 동일하지만, 더 간단
+    // promise chaining
+    promise
+        .then((value) => {
+            console.log(value)
+        })
+        .catch((error) => {
+            console.log(error)  // num이 숫자가 아닙니다.
+        })
+    ```
+    
+    - promise 객체를 이용할 때 then과 catch 메서드를 잘 활용하면 promise가 관리하는 비동기 작업이 성공하거나 실패했을 때 그 결과값을 이용할 수 있다.
+    - then과 catch를 연달아서 사용 → promise chaining
+    - promise 객체를 이용해도 비동기 작업의 결과를 또 다른 비동기 작업의 인수로 전달할 수 있다.
+    
+    ```jsx
+    function add10(num) {
+        const promise = new Promise((resolve, reject) => {
+    
+            setTimeout(() => {
+        
+                if (typeof num === "number") {
+                    resolve(num + 10)
+                } else {
+                    reject("num이 숫자가 아닙니다.")
+                }
+            }, 2000);
+        })
+    
+        return promise
+    }
+    
+    add10(0)
+      .then((result) => {
+        console.log(result)     // 10
+        return add10(result)
+      })
+      .then((result) => {
+        console.log(result)     // 20
+        return add10(undefined)
+      })
+      .then((result) => {
+        console.log(result)     
+      })
+      .catch((error) => {
+        console.log(error)      // num이 숫자가 아닙니다.
+      })
+    ```
+    
+    - API를 호출 or 다른 서버와의 통신 등 → promise 객체가 굉장히 활발하게 사용된다.
