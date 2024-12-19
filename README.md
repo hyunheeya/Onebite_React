@@ -1389,3 +1389,62 @@
     - **Web APIs**: 웹 브라우저가 직접 관리하는 별도의 영역
     
     - JavaScript 엔진은 코드를 한 줄씩 실행하다가 비동기 함수를 만나게 되면 브라우저의 Web APIs에게 실행해달라고 부탁한다 → 타이머가 끝나면 실행할 콜백함수까지 같이 넘겨준다 → 그러고 나서 JavaScript 엔진은 타이머를 기다리지 않고 아래에 있는 작업을 즉시 실행한다 → Web APIs에 있는 타이머가 완료되면 전달 받았던 콜백함수를 다시 JavaScript 엔진에게 돌려준다 →  JavaScript 엔진은 그제서야 돌려받은 콜백함수를 실행시킴으로써 이러한 방식으로 비동기 처리가 이루어진다.
+
+
+
+---
+### **2.12) 비동기 작업 처리하기 1. 콜백함수**
+
+- 비동기 작업을 하는 함수의 결과값을 함수 외부에서 이용하고 싶다면, 콜백함수를 사용해서 비동기 함수 안에서 콜백함수를 호출하도록 설정하면 된다.
+
+    ```jsx
+    function add(a, b, callback) {
+        setTimeout(() => {
+            const sum = a + b   // 3
+            callback(sum)
+        }, 3000);
+    }
+
+    add(1, 2, (value) => {      // 3초 후 인수로 전달한 콜백 함수 실행
+        console.log(value)
+    })
+    ```
+
+- Ex) 음식을 주문하는 상황
+    
+    ```jsx
+    function orderFood(callback) {
+        setTimeout(() => {
+            const food = "떡볶이"
+            callback(food)
+        }, 3000);
+    }
+    
+    function cooldownFood(food, callback) {
+        setTimeout(() => {
+            const cooldownedFood = `식은 ${food}`
+            callback(cooldownedFood)
+        }, 2000);
+    }
+    
+    function freezeFood(food, callback) {
+        setTimeout(() => {
+            const freezedFood = `냉동된 ${food}`
+            callback(freezedFood)
+        }, 1500);
+    }
+    
+    orderFood((food) => {
+        console.log(food)   // 3초 뒤 출력
+    
+        cooldownFood(food, (cooldownedFood) => {
+            console.log(cooldownedFood)   // 5초 뒤 출력
+    
+            freezeFood(cooldownedFood, (freezedFood) => {
+                console.log(freezedFood)    // 6.5초 뒤 출력
+            })
+        })
+    }) 
+    ```
+    
+    - 기능이 늘어날수록 인덴트(들여쓰기)가 점점 깊어지는 형태 → 가독성이 점점 안 좋아진다. ⇒ 콜백 지옥 ⇒ 비동기 작업을 도와주는 객체인 **promise**를 이용
