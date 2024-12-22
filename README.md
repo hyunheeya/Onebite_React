@@ -1933,3 +1933,64 @@ Node.js는 왜 만든걸까?
             - Virtual DOM이 업데이트들을 모아두는 장소 역할
         
 
+
+
+---
+### **4.2) 첫 React App 생성하기**
+
+**React Application?**
+
+- React로 만든 웹 서비스들은 보통 React App, React Application이라고 불린다.
+    - React로 만들어진 대다수의 웹 서비스들은 단순한 웹 페이지의 기능을 넘어서 사실상 어플리케이션에 가까울 정도로 매우 다양한 기능들을 제공하고 있기 때문에 이것은 마치 단순한 웹이 아니라 웹 브라우저에서 동작하는 어플리케이션 같다고 해서 React App, React Application이라고 불린다.
+- React App은 다양한 방식으로 생성할 수 있다.
+    - Node.js 패키지 생성 → React 라이브러리 설치 → 기타 도구 설치 및 설정(입문자에게 권장하기 어려움)
+    - Vite라는 차세대 프론트엔드 개발 툴을 이용해서 기본 설정이 미리 다 완료된 상태의 React App을 생성
+        - Vite는 React 공식 문서 권장 사항임 → 오늘날 대부분의 React App은 Vite를 이용해서 만들어지고 있다.
+- React도 npm에 등록된 JavaScript 라이브러리
+
+**React App 생성 순서**
+
+1. `npm create vite@latest`
+2. `프로젝트 name` 입력
+3. framework → `React` 선택
+4. variant → 어떤 버전의 react app인지 선택 → `JavaScript`
+
+- React App 또한 기본적으로 Node.js 패키지이다 → package.json 파일 존재
+    - package.json → devDependencies 항목은 오직 개발할 때만 사용되는 라이브러리들이 저장되는 곳
+        - 개발 시에 유용한 문법 체크 도구, 개발 시에 활용할 테스트 도구 등이 들어있다.
+        - 배포 시에는 이 라이브러리들은 포함되지 않는다.
+    - 아직 node_modules, package-lock.json이 설치되지 않음 → `npm i` 를 통해 설치
+- **React App의 폴더 및 파일 설명**
+    - **node_modules 폴더**
+        - 200개가 넘는 라이브러리들이 설치되어 있음 → React App을 만들기 위해서 이렇게나 많은 라이브러리들이 추가로 필요함 → 이렇게 많은 라이브러리를 우리가 직접 조사하고 설치하고 설정하는 일을 하고 싶지 않으니 vite과 같은 도구를 이용해서 React App을 생성
+    - **public 폴더**
+        - vite.svg → 이미지 파일
+        - 용도: svg나 png, jpg 같은 이미지 파일들을 보관하거나, 폰트나 동영상 같은 코드가 아닌 정적인 파일들을 보관하는 저장소
+    - **src 폴더**
+        - source의 약자
+        - 실제로 우리가 작성하게 될 react나 JavaScript 코드들을 보관하는 폴더
+        - jsx 확장자 → react에서 사용되는 특수한 확장자, react 코드가 작성되는 공간
+        - assets 폴더 → public 폴더와 동일하게 이미지나 폰트와 같은 정적인 파일을 보관할 수 있다 → 둘의 차이는 나중에 실습 하면서 확인
+    - **.eslintrc.cjs 파일**
+        - eslintrc 라는 도구의 설정 파일
+        - 아예 몰라도 괜찮음
+        - eslintrc 라는 도구는 개발자들 사이에 코드 스타일을 통일하는데 도움을 주는 도구
+        - 이러한 규약이 있구나 정도로만 알고 넘어가기
+    - **.gitignore 파일**
+        - React를 github 같은 곳에 업로드할 때 올리면 안 되는 파일들을 명시하는 곳
+    - **index.html 파일**
+        - 아주 단순한 html 코드가 작성되어 있음
+        - React App의 기본 틀 역할을 하는 html 코드가 담긴 파일
+        - React에서는 UI 요소를 만들 때 JavaScript 함수로, 컴포넌트로 만든다 →  JavaScript 함수로 되어 있는 컴포넌트를 index.html에 나중에 DOM을 수정해서 추가하는 방식으로 동작하는데 그때 이 파일이 기본적인 틀이 된다.
+    - **vite.config.js 파일**
+        - React App을 만들 때 사용한 vite라는 도구의 옵션을 설정하는 파일
+- package.json → scripts → React App을 실행시킬 수 있는 4가지의 명령어가 미리 설정되어 있다.
+    - dev라는 명령어가 React App을 개발용으로 실행시키는 명령어
+    - `h` + `enter` → 단축키가 나옴
+        - `r` + `enter` → 서버 재실행
+        - `u` + `enter` → 서버 url 다시 보여줌
+        - `o` + `enter` → 브라우저에서 서버 열림
+        - `c` + `enter` → 콘솔 clear
+        - `q` + `enter` → React App 종료
+    
+   
