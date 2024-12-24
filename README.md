@@ -2026,3 +2026,19 @@ React App은 어떻게 구동되는 걸까?
         - react에서는 함수가 html 태그들을 return 하고 있으면, 이 함수를 컴포넌트라고 부른다.
             - function App ()
     - **index.html → script 태그 → main.jsx → App.jsx → function App의 return 값이 렌더링**
+
+
+    ---
+    ### **5.1) 실습 준비하기**
+
+- svg 파일 및 import 문 삭제
+- main.jsx의 React.StricMode - 개발 모드로 react를 실행하고 있을 때, 우리가 작성한 코드에 혹시나 잠재적인 문제가 있는지 내부적으로 검사해서 경고해주는 도구
+    - 실습에서는 필요X
+    - 입문자에게는 몇몇 혼란을 일으킬 수 있음 ⇒ 삭제
+- VS Code → Extensions → ESLint 설치
+    - ESLint: 우리가 작성하는 코드를 정적으로 검사해서 혹시나 오류가 발생할 만한 코드가 있으면 경고를 띄어주는 프로그램
+    - 우리가 ESLint를 사용하면 코드를 직접 실행해보기 전에 미리 오류를 VS Code 상에서 확인할 수 있기 때문에 되도록이면 사용해보기를 권장
+- eslint.config.js → rules에 `"no-unused-vars":"off”` 추가
+    - 코드 상에 실제로 사용하지 않는 변수가 있을 때 오류로 알려주는 옵션 → off
+- eslint.config.js → rules에 `"react/prop-types":"off"` 추가
+    - React를 좀 더 안전하게 사용할 수 있도록 해주는 도구 → off
