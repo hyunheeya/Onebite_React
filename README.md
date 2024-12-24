@@ -1994,3 +1994,37 @@ Node.js는 왜 만든걸까?
         - `q` + `enter` → React App 종료
     
    
+
+
+---
+### **4.3) React App 구동원리 살펴보기**
+
+React App은 어떻게 구동되는 걸까?
+
+
+1. React App 생성(with Vite) - `npm create vite@latest`
+2. React App 가동 - `npm run dev`    
+3. React App 접속 - 콘솔에 나타난 주소로 접속
+    - http://localhost:5173/
+        - **localhost** : **내 컴퓨터의 주소**를 의미
+        - 브라우저에서 내 컴퓨터에서 실행되고 있는 react 웹 서버에 접속 요청을 보냄
+        - 5173 : 포트 번호 (Port Number)
+            - 하나의 컴퓨터 내에서 여러 개의 서버를 동작시키기 위해서 필요한 주소 체계
+            - 포트 번호가 필요한 이유: 하나의 컴퓨터에서 react 웹 서버 말고도 PHP로 만든 웹 서버도 함께 동작하고 있다고 가정했을 때 (하나의 컴퓨터에 두 대의 서버가 동시에 동작) localhost라는 주소로 내 PC에 요청을 보내게 되면 어떤 서버가 응답을 보내야 할지 모름 → 하나의 PC에서 여러 개의 서버가 동작하고 있을 때 주소로만 요청을 받게 되면 어떠한 서버가 이 요청에 응답해야 하는지가 굉장히 모호하기 때문에 이러한 상황을 막기 위해 컴퓨터는 모든 프로그램이 실행될 때마다 자동으로 고유한 포트 번호를 붙여준다.
+            
+            
+        - localhost는 자기 자신의 컴퓨터를 가리키는 주소이기 때문에 다른 사람의 컴퓨터에서는 당연히 이 주소로 React App에 접속할 수 없다.
+    - vite를 통해 생성한 React App에는 웹 서버가 내장되어 있었고, React App을 가동하기 위해 사용했었던 `npm run dev`라는 명령은 이러한 react 서버를 가동시키는 명령어
+    - React App 서버를 가동시켰을 때 콘솔에 출력되었던 메세지는 react 웹 서버의 가동이 시작되었다는 의미
+        - 메세지와 같이 출력되었던 localhost 주소는 현재 가동 중인 react 웹 서버에 우리가 접속할 수 있는 주소
+        
+    
+    - React App에 접속하게 되면 React App은 index.html 파일을 브라우저에게 보내줌 → index.html에는 아무것도 없지만, index.html의 script 태그로 불러오고 있는 src 폴더 아래에 있는 main.jsx라는 JavaScript 파일이 실행되었을 때 동적으로 추가되는 요소들이 화면에 보이게 됨
+        - **creatRoot()** - 인수로 전달받은 html 요소를 react의 root로, 즉 뿌리로 만들어주는 역할을 한다.
+        - **render()** - 렌더링 메서드 ⇒ <> → 컴포넌트 렌더링
+            - App.jsx에서 App을 import
+            - <App />
+        
+        - react에서는 함수가 html 태그들을 return 하고 있으면, 이 함수를 컴포넌트라고 부른다.
+            - function App ()
+        - index.html → script 태그 → main.jsx → App.jsx → function App의 return 값이 렌더링
