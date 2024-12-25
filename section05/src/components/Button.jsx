@@ -12,8 +12,21 @@
 // }
 
 const Button = ({text, color, children}) => {
+    // 이벤트 객체
+    const onClickButton = (e) => {
+        console.log(e)
+        console.log(text)
+    } 
+
     return (
-    <button style={{ color: color }}>
+    <button 
+        // onClick={() => {
+        //     console.log(text)
+        // }}
+        onClick={onClickButton}
+        // onMouseEnter={onClickButton}
+        style={{ color: color }}
+    >
         {text} - {color.toUpperCase()}
         {children}
     </button>
