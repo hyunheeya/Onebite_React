@@ -2164,3 +2164,146 @@ JSX 문법을 이용해서 Main 컴포넌트가 **조건에 따라 각각 다른
         - 원래 html에서는 class라고만 했으나 JSX에서는 JavaScript와 html을 함께 쓰고 있기 때문에 JavaScript에서 클래스를 정의할 때 사용되는 예약어인 class를 사용할 수 없다.
 
 
+---
+### **5.4) Props로 데이터 전달하기**
+
+- React에서는 페이지를 컴포넌트 단위로 나누어서 마치 레고를 조립하듯 개발한다.
+
+
+- React에서는 **부모 컴포넌트가 자식 컴포넌트에게** 마치 함수의 인수를 전달하듯이 원하는 **값을 전달**하는 게 가능함 → 이러한 기능을 **Props**라고 한다.
+    - **컴포넌트에 전달된 값**들을 **Props**라고 부름
+        - Properties의 줄임말
+    - Props를 이용하면 컴포넌트를 마치 함수를 호출하듯이 전달하는 값에 따라서 각각 다른 UI를 렌더링 하도록 만들 수 있기 때문에 Props는 react의 핵심 개념 중 하나!
+    - 자식 컴포넌트에 매개변수가 존재할 때, 자식 컴포넌트에게 Props를 전달해주면 이 값들은 **객체**로 묶여서 자식 컴포넌트의 매개변수로 제공이 된다.
+        - 매개변수에는 객체가 제공이 될 것이고, 해당 객체 내에는 우리가 전달한 Props의 값들이 프로퍼티로 들어있다.
+    - Props의 값이 없을 때, 즉 값이 전달되지 않았을 때 자동으로 기본값을 설정하여 오류를 해결할 수 있다 ⇒ **.defaultProps = {}**
+    
+        ```jsx
+        // Button.jsx
+        const Button = (props) => {
+            console.log(props)
+            return (
+            <button style={{ color: props.color }}>
+                {props.text} - {props.color.toUpperCase()}
+            </button>
+            )
+        }
+        
+        Button.defaultProps = {
+            color: "black",
+        }
+        
+        export default Button
+        ```
+    
+
+**Props를 받아서 사용할 때 더 편리하게 사용하는 방법**
+
+- Props는 객체 형태 → 점 표기법 대신 객체의 구조 분해 할당 문법 이용
+
+    ```jsx
+    const Button = ({text, color}) => {
+        return (
+        <button style={{ color: color }}>
+            {text} - {color.toUpperCase()}
+        </button>
+        )
+    }
+
+    Button.defaultProps = {
+        color: "black",
+    }
+
+    export default Button
+    ```
+
+- Props로 여러 개의 값을 전달 → const를 사용하여 값들을 객체로 묶고, Props를 전달할 때 스프레드 연산자를 이용
+
+    ```jsx
+    // App.jsx
+    function App() {
+
+    const buttonProps = {
+        text: "메일",
+        color: "red",
+        a: 1,
+        b: 2,
+        c: 3,
+    }
+
+    return (
+        <>
+        <Button {...buttonProps}/>
+        <Button text={"카페"}/>
+        <Button text={"블로그"}/>
+        </>
+    )
+    }
+
+    export default App
+    ```
+
+- Props는 일반적인 문자열 같은 JavaScript 값뿐만 아니라 html 요소나 react 컴포넌트도 전달할 수 있다.
+    - Props에 태그를 전달 → 자식 요소로 전달된다 → 매개변수 children 사용
+        
+        ```jsx
+        // App.jsx
+        .
+        .
+        .
+          return (
+            <>
+              <Button {...buttonProps}/>
+              <Button text={"카페"}/>
+              <Button text={"블로그"}>
+                <div>자식요소</div>
+              </Button>
+            </>
+          )
+          .
+          .
+          .
+        ```
+        
+        ```jsx
+         // Button.jsx
+         const Button = ({text, color, children}) => {
+            return (
+            <button style={{ color: color }}>
+                {text} - {color.toUpperCase()}
+                {children}
+            </button>
+            )
+        }
+        
+        Button.defaultProps = {
+            color: "black",
+        }
+        
+        export default Button
+        ```
+        
+    - Header와 같은 컴포넌트도 children Props로 전달할 수 있다.
+        
+        ```jsx
+        // App.jsx
+        .
+        .
+        .
+          return (
+            <>
+              <Button {...buttonProps}/>
+              <Button text={"카페"}/>
+              <Button text={"블로그"}>
+                <Header/>
+              </Button>
+            </>
+          )
+          .
+          .
+          .
+        ```
+        
+- Props는 부모 컴포넌트에서 자식 컴포넌트로만 전달할 수 있다 → 반대는 불가능!
+
+
