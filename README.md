@@ -2771,3 +2771,41 @@ export default Register
 2. 여러 개의 비슷하게 생긴 이벤트 핸들러들은 통합 이벤트 핸들러로 묶어줄 수 있다.
 
 
+
+---
+### **5.10) useRef로 컴포넌트의 변수 생성하기**
+
+**useRef란?**
+
+- use Reference의 줄임말
+- **컴포넌트 내부에 새로운 reference 객체를 생성**해주는 기능
+- Ex) `const refObject = useRef()`
+- 이렇게 생성한 reference 객체는 **컴포넌트 내부의 변수**로써 일반적인 값들을 저장할 수 있다.
+- 컴포넌트 내부의 변수로 활용 가능하다는 점에서 useState와 비슷하지만, useRef는 **어떤 경우에도 리렌더링을 유발하지 않는다** ⇒ 렌더링에 영향을 미치고 싶지 않은 변수를 생성할 때 useRef를 이용
+    
+    
+- useRef를 이용하면 컴포넌트가 렌더링하는 특정 DOM 요소에 접근할 수 있고, 해당 요소를 조작하는 것도 가능하다.
+    - Ex) 특정 요소에 Focus를 준다든가, 해당 요소의 스타일을 갑자기 변경시키는 동작들도 손쉽게 구현 가능
+    
+    
+- useRef 또한 react에서 제공되는 내장함수이기 때문에 import를 해야 한다 -  `import { useRef } from "react”`
+- Reference 객체란 current라는 프로퍼티에 현재 보관할 값을 담아두기만 하는 단순한 JavaScript 객체이다.
+    - 초기값 설정도 가능
+    - reference 객체값 사용 → `변수.current`
+
+Reference 객체 이용 예시
+
+1. Register 컴포넌트가 렌더링 하고 있는 4개의 포맷을, 사용자가 얼마나 많은 횟수의 변경을 일으켰는지 수정 횟수를 카운트 하는 기능을 생성
+2. 새로운 reference 객체를 생성해서 register 컴포넌트가 렌더링 하고 있는 DOM 요소들을 직접 조작
+    
+    Ex) 회원가입 폼을 제출하는 기능
+    
+    - Focus : 선택된 상태로 만드는 것
+
+
+- 컴포넌트 내부에 let을 사용하여 만든 JavaScript 변수 대신 useRef를 사용하는 이유 : state 값 변경하면 컴포넌트 리렌더링 → JavaScript 변수도 초기화됨 but,  useState나 useRef로 만든 react의 특수한 변수들은 컴포너트가 리렌더링 된다고 해도 다시 reset이 되지 않는다 (내부적으로 그렇게 설계되어 있기 때문)
+    - 컴포넌트 외부에 let을 사용하여 JavaScript 변수 만드는 것 가능 → but, App 컴포넌트에서 Register 컴포넌트를 두 번 렌더링 했을 때, 이 두 개의 컴포넌트들이 하나의 변수(ex. count)를 공유 → 치명적인 오류
+        - 함수만 두 번 호출된 것일뿐, 컴포넌트 외부에 있는 변수가 두 번 선언된 것은 아니다!
+    - React에서 컴포넌트 외부에 변수 선언하는 것은 권장되지 X
+
+
