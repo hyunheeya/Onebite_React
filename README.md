@@ -2883,3 +2883,36 @@ Q.  입력창에 123123을 입력하면 `useInput()` 함수가 총 6번 호출�
 
 
 
+---
+### **6.1) 프로젝트 소개 및 준비**
+
+
+- 버튼을 클릭하면 카운트가 증가하는 간단한 기능들만 포함하고 있다.
+- 컴포넌트 분리
+    - Viewer : count number를 보여주는 섹션
+    - Controller : count를 늘리거나 줄이는 버튼이 모여있는 섹션
+    - App : 다른 두 개의 컴포넌트를 렌더링 하도록 부모 컴포넌트로 만들기
+    
+
+**새로운 프로젝트를 위한 기본 설정**
+
+- eslint.config.js
+    - rules에 추가하기
+    
+    
+    ```jsx
+        "no-unused-vars": "off",
+        "react/prop-types": "off",
+    ```
+    
+- public 폴더 아래 vite.svg 파일 삭제
+- assetes 폴더 아래에 있는 react.svg 파일 삭제
+- App.jsx 파일
+    - return 문 비우고 “카운터 앱” 작성
+    - import 문 삭제 (App.css 빼고)
+    - useState 코드도 삭제
+- App.css 코드 전부 삭제
+- index.css 코드 전부 삭제
+- main.jsx 파일에서 StrictMode 삭제
+
+
