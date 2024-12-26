@@ -2479,17 +2479,17 @@ JSX 문법을 이용해서 Main 컴포넌트가 **조건에 따라 각각 다른
     - 자기소개
 - input 태그를 통해 사용자 입력 받기 → **placeholder** : 아무런 값도 입력하지 않았을 때 보이는 가이드 문구
 - 사용자가 입력한 이름을 name state에 보관
-    - input의 값이 변경되었을 때를 의미하는 onChange라는 이벤트 핸들러 사용
-    - 이벤트 객체 → target → value에 input 값이 저장되어 있다 → 점 표기법 사용해서 접근
+    - input의 값이 변경되었을 때를 의미하는 **onChange**라는 이벤트 핸들러 사용
+    - 이벤트 객체 → target → value에 input 값이 저장되어 있다 → **점 표기법** 사용해서 접근
         
-    - React에서 state를 이용해서 사용자의 입력을 저장하고 처리할 때 초기값을 설정하는 경우도 꽤 많이 존재
-        - onChange 뿐만 아니라 value 값도 설정해주어야 한다.
+    - React에서 state를 이용해서 사용자의 입력을 저장하고 처리할 때 **초기값을 설정**하는 경우도 꽤 많이 존재
+        - onChange 뿐만 아니라 **value 값도 설정**해주어야 한다.
 - `<input type="date" />` → date picker가 렌더링 됨 → date picker는 사용하는 브라우저에 따라 조금씩 다름
 - 국적 → 제한된 선택지를 미리 제공 → select box 사용
     - select 태그는 기본적으로 옵션들 중에 맨 위에 있는 옵션을 초기값으로 사용
     - 아무것도 선택되지 않은 상태로 초기값을 설정하고 싶다 → 맨 위에 빈 옵션 추가
     - 화면에 표시되는 선택지와 실제 코드 상에서 사용할 value 값을 다르게 선택할 수 있다.
-        - option의 value를 변경하면 이 value 값으로 저장됨
+        - **option의 value를 변경하면 이 value 값으로 저장됨**
         - 보통은 선택지는 더 친절하고 길게 텍스트를 명시하고, 내부적인 value로는 더 간결한 값을 사용하는 경우가 많다 → 간단하게 설정하는 게 더 일반적
 - 자기소개 → textarea 태그 사용
     - input 태그와는 달리 여러 줄의 입력을 받을 수 있는 태그
@@ -2556,5 +2556,218 @@ const Register = () => {
 
 export default Register
 ```
+
+
+---
+### **5.9) State로 사용자 입력 관리하기 2**
+
+**이전 시간에 작성했던 코드들을 더 간결하게 개선**
+
+```jsx
+// Before
+import { useState } from "react"
+
+const Register = () => {
+
+    const [name, setName] = useState("이름")
+    const [birth, setBirth] = useState("")
+    const [country, setCountry] = useState("")
+    const [bio, setBio] = useState("")
+
+    const onChangeName = (e) => {
+        setName(e.target.value)
+    }
+
+    const onChangeBirth = (e) => {
+        setBirth(e.target.value)
+    }
+
+    const onChangeCountry = (e) => {
+        setCountry(e.target.value)
+    }
+
+    const onChangeBio = (e) => {
+        setBio(e.target.value)
+    }
+
+    return (
+        <div>
+            <div>
+                <input 
+                    value={name} 
+                    onChange={onChangeName} 
+                    placeholder="이름" 
+                />
+            </div>
+            <div>
+                <input 
+                    value={birth} 
+                    onChange={onChangeBirth} 
+                    type="date" 
+                />
+            </div>
+            <div>
+                <select value={country} onChange={onChangeCountry}>
+                    <option value=""></option>
+                    <option value="kr">한국</option>
+                    <option value="us">미국</option>
+                    <option value="uk">영국</option>
+                </select>
+            </div>
+            <div>
+                <textarea value={bio} onChange={onChangeBio}/>
+                {bio}
+            </div>
+        </div>
+    )
+}
+
+export default Register
+```
+
+```jsx
+// After 1
+// state 통합
+import { useState } from "react"
+
+const Register = () => {
+
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        bio: ""
+    })
+
+    const onChangeName = (e) => {
+        setInput({
+            ...input,
+            name: e.target.value,
+        })
+    }
+
+    const onChangeBirth = (e) => {
+        setInput({
+            ...input,
+            birth: e.target.value,
+        })
+    }
+
+    const onChangeCountry = (e) => {
+        setInput({
+            ...input,
+            country: e.target.value,
+        })
+    }
+
+    const onChangeBio = (e) => {
+        setInput({
+            ...input,
+            bio: e.target.value,
+        })
+    }
+
+    return (
+        <div>
+            <div>
+                <input 
+                    value={input.name} 
+                    onChange={onChangeName} 
+                    placeholder="이름" 
+                />
+            </div>
+            <div>
+                <input 
+                    value={input.birth} 
+                    onChange={onChangeBirth} 
+                    type="date" 
+                />
+            </div>
+            <div>
+                <select value={input.country} onChange={onChangeCountry}>
+                    <option value=""></option>
+                    <option value="kr">한국</option>
+                    <option value="us">미국</option>
+                    <option value="uk">영국</option>
+                </select>
+            </div>
+            <div>
+                <textarea value={input.bio} onChange={onChangeBio}/>
+            </div>
+        </div>
+    )
+}
+
+export default Register
+```
+
+- Spread 연산자 사용 ⇒ 원래 input 값 복사 → 바꾸고자 하는 값만 변경
+- 여러 개의 state로 나눠서 관리하던 4가지의 데이터를 객체 형태로 만들어서 하나의 state로 함께 관리
+    - 복잡한 상태를 직접 관리해야 할 때 도움이 될 것
+
+```jsx
+// After 2
+// 통합 이벤트 핸들러
+import { useState } from "react"
+
+const Register = () => {
+
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        bio: ""
+    })
+
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    return (
+        <div>
+            <div>
+                <input 
+                    name="name"
+                    value={input.name} 
+                    onChange={onChange} 
+                    placeholder="이름" 
+                />
+            </div>
+            <div>
+                <input 
+                    name="name"
+                    value={input.birth} 
+                    onChange={onChange} 
+                    type="date" 
+                />
+            </div>
+            <div>
+                <select name="name" value={input.country} onChange={onChange}>
+                    <option value=""></option>
+                    <option value="kr">한국</option>
+                    <option value="us">미국</option>
+                    <option value="uk">영국</option>
+                </select>
+            </div>
+            <div>
+                <textarea name="name" value={input.bio} onChange={onChange}/>
+            </div>
+        </div>
+    )
+}
+
+export default Register
+```
+
+- 새로운 객체를 만들면서 프로퍼티의 key 자리에 대괄호를 열고 그 안에 어떠한 변수의 이름을 쓰면 변수의 값이 프로퍼티의 key로서 설정이 된다.
+    - `[e.target.name]: e.target.value` : e.target.name 값으로 key를 설정하겠다
+
+**요약**
+
+1. 비슷한 여러 개의 state가 있을 때는 하나의 객체값으로 묶어서 하나의 state로 통합해서 관리하면 편하다.
+2. 여러 개의 비슷하게 생긴 이벤트 핸들러들은 통합 이벤트 핸들러로 묶어줄 수 있다.
 
 
