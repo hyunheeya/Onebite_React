@@ -84,12 +84,23 @@ import './App.css'
 
 
 import Register from './components/Register'
+// function App() {
+//   return (
+//     <>
+//       <Register />
+//     </>
+//   )
+// }
+
+
+import HookExam from './components/HookExam'
 
 function App() {
   return (
     <>
-      <Register />
+      <HookExam />
     </>
   )
 }
+
 export default App

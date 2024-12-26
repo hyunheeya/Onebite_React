@@ -2809,3 +2809,77 @@ Reference 객체 이용 예시
     - React에서 컴포넌트 외부에 변수 선언하는 것은 권장되지 X
 
 
+---
+### **5.11) React Hooks**
+
+**React Hooks란?**
+
+- 클래스 컴포넌트에서만 이용할 수 있는 react의 특수한 기능들을 함수 컴포넌트에서도 사용할 수 있도록 도와주는 메서드들
+- Class 컴포넌트는 문법이 복잡 → 문법이 간결한 함수 컴포넌트에서도 react의 모든 기능들을 다 이용하길 바람 → 함수 컴포넌트에서도 class 컴포넌트의 기능을 마치 낚아채듯이 가져와서 사용할 수 있게 해주는 React Hooks라는 기능을 개발
+    - 거의 모든 컴포넌트를 함수 컴포넌트로 만든다(with Recat Hooks)
+- useState, useRef 또한 React Hooks
+    - useState : State 기능을 낚아채오는 Hook
+    - useRef : Reference 기능을 낚아채오는 Hook
+
+- React Hooks에는 이름 앞에 use라는 접두사가 붙는다.
+- 각각의 메서드들은 Hook이라고 부른다.
+- 함수 컴포넌트 내부에서만 호출 가능
+- 조건문, 반복문 내부에서는 호출 불가
+- Use라는 접두사를 이용해서 직접 나만의 새로운 Hook인 Custom Hook을 만드는 것도 가능
+
+**3가지 hook 관련된 팁**
+
+1. **hook은 반드시 함수 컴포넌트나 custom hook 내부에서만 호출 가능**
+    
+    ```jsx
+    import { useState } from "react"
+    
+    const HookExam = () => {
+        const state = useState()
+    
+        return <div>hookexam</div>
+    }
+    
+    export default HookExam
+    ```
+    
+2. **hook은 조건부로 호출될 수는 없다.**
+    - 조건부 : 조건문이나 반복문
+    - 조건부로 호출하게 되면 서로 다른 hook들의 호출 순서가 엉망이 되어버리는 현상이 발생 → 내부적인 오류가 발생할 수 있음
+3. **나만의 훅(Custom Hook)을 직접 만들 수 있다.**
+    - use라는 키워드 사용 → react는 내부적으로 use라는 접두사를 사용하는 함수를 custom hook이라고 판단
+    - 컴포넌트 내부에 반복되는 로직을, 그리고 hook을 사용하는 로직을 분리할 수 있다.
+    - 보통 Custom Hook은 컴포넌트와 같은 파일에 두지 않고 src 디렉토리 아래에 hooks라는 별도의 폴더를 만들어서 hook의 이름으로 된 파일로 보관하는 게 일반적
+
+**※ 이해 안 되는 부분 조사 ※**
+
+Q.  입력창에 123123을 입력하면 `useInput()` 함수가 총 6번 호출되는 것인가?
+
+**A**. **`useInput()` 함수**는 컴포넌트가 처음 렌더링될 때 **한 번 호출**된다. 이후 입력 값이 변경될 때마다 컴포넌트가 리렌더링되지만, **`useInput()`함수** 자체는 다시 호출되지 않는다. **`onChange()` 함수가 6번 호출된다.**
+
+**구체적인 과정**
+
+1. **useInput 함수의 초기 호출**
+    1) 컴포넌트가 처음 렌더링될 때 useInput() 함수가 한 번 호출된다.
+    2) 이때, useState를 통해 상태(input)와 상태 변경 함수(setInput)가 생성된다.
+    3) onChange 함수가 정의됩니다.
+    4) useInput 함수는 [input, onChange]를 반환한다.
+2. **클로저(Closure)의 역할**
+    1) onChange 함수는 클로저를 형성한다.
+    2) 이 클로저는 setInput 함수에 대한 참조를 유지한다.
+    3) 따라서 useInput 함수의 실행이 끝난 후에도 onChange 함수는 setInput을 사용할 수 있다.
+        - **클로저**는 함수와 그 함수가 선언된 렉시컬 환경(Lexical Environment)의 조합. 다시 말해, 클로저는 자신이 선언될 당시의 환경을 기억하는 함수. 자바스크립트의 강력한 기능 중 하나로, 데이터의 은닉과 캡슐화를 가능하게 하며 코드의 구조화와 모듈화에 도움을 준다.
+        - **렉시컬 환경**: 코드가 실행되는 시점의 주변 환경, 즉 변수와 함수의 선언을 포함하는 환경
+3. **이벤트 처리**
+    1) 입력 필드에 변화가 생길 때마다 React는 onChange 이벤트를 발생시킨다.
+    2) 이 이벤트는 이전에 반환된 onChange 함수를 호출한다.
+    3) onChange 함수는 클로저를 통해 setInput에 접근하여 상태를 업데이트한다.
+4. **리렌더링**
+    1) setInput이 호출되면 React는 컴포넌트를 리렌더링한다.
+    2) 리렌더링 시 useInput()은 다시 호출되지 않는다.
+    3) 대신, React는 이전에 생성된 상태와 함수를 재사용한다.
+
+따라서, useInput 함수는 컴포넌트의 첫 렌더링 시에만 호출되고, 그 안에서 정의된 onChange 함수는 클로저를 통해 계속 사용된다. **입력 값이 변경될 때마다 이 onChange 함수만 호출되며, useInput 함수 전체가 다시 실행되는 것은 아니다.**
+
+
+
