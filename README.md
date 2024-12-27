@@ -3016,3 +3016,58 @@ Q.  입력창에 123123을 입력하면 `useInput()` 함수가 총 6번 호출�
 
 
 
+---
+### **7.2) useEffect 사용하기**
+
+**useEffect란?**
+
+- 사이드 이펙트를 제어하는 새로운 React Hook
+    - 사이드 이펙트란?
+        - 우리말로 부작용이라는 뜻
+        - React에서는 어떠한 동작에 따른 “부수적인 효과”, “파생되는 효과” 정도로 해석 가능
+        - 원하는 값이 바뀌었을 때, 특정 동작을 하도록 만들 수 있다.
+    - 컴포넌트가 어떠한 동작을 했을 때 발생하게 되는 파생적인 효과
+        - 라이프사이클을 제어하는 것도 컴포넌트의 사이드 이펙트 
+        
+        - useEffect를 사용하면 사이드 이펙트를 새롭게 만들거나 제어할 수 있다.
+        
+- useEffect 또한 React Hook이기 때문에 import 해야 한다.
+    - `import { useEffect } from 'react’`
+- 첫 번째 인수로는 콜백함수, 두 번째 인수로는 배열을 넣어줘!
+    - 두 번째 인수로 전달한 배열에 들어가 있는 값이 바뀌게 되면 사이드 이펙트로써 첫 번째 인수로 전달한 콜백함수를 실행시켜 준다.
+    - useEffect라는 훅은 **두 번째 인수(배열)**에 의존한다.
+        - 배열에 무엇을 넣느냐에 따라서 다르게 동작
+        - 의존성 배열(dependency array, deps)이라고 부른다.
+        - 값 여러 개 넣는 것 가능
+
+- 이벤트 핸들러 안에서 특정 값의 state가 바뀌었을 때 특정 동작을 수행하도록 만들면 원하는 대로 동작이 안 되는 이유: react의 상태 변화 함수는 비동기로 동작하기 때문 → 함수의 완료가 나중에 뒤늦게 된다
+    
+    ```jsx
+      const onClickButton = (value) => {
+        setCount(count + value)
+        console.log(count)
+      }
+    ```
+    
+    - console.log가 실행될 때, setCount가 호출만 되었고 아직 완료되지 않은 상태이다 ⇒ 변경되기 이전의 state 값이 출력된다.
+- **변경된 state의 값을 바로 사용해서 사이드 이펙트에 해당하는 부가적인 작업을 진행하려면 useEffect를 이용해야 한다.**
+
+
+**※ 헷갈리는 것 ※**
+
+A. **2개의 value 값의 차이?**
+
+```
+        <input
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value)
+          }} 
+```
+
+Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필드의 값 동기화
+
+`setInput(e.target.value)` → 입력값의 target의 value 값으로 state 변경
+
+
+
