@@ -3226,6 +3226,77 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
 - TodoItem의 데이터들을 state로 만들어서 보관해야 한다 → 새로운 데이터가 추가되거나 수정되거나 삭제되었을 때 바로바로 화면에 그 변화를 반영할 수 있기 때문
 - App.css에 state를 활용하여 todos, setTodos 선언
 - 임시데이터 선언 → state의 초기값으로 활용
+- date는 new Date().getTime()을 사용하여 타임스탬프로 보관
 
+
+
+---
+### **8.4) Create - 투두 추가하기**
+
+- Editor에 입력되는 값을 받아서 todos에 추가하는 기능 → App.jsx 파일에 onCreate 함수 선언
+    - todos에 추가할 때, push 메서드가 아닌 setTodos 함수 사용하기!
+        - 상태 변화 함수를 사용해야 변경된 state의 값을 react가 감지할 수 있고, 그렇게 함으로써 컴포넌트를 정상적으로 리렌더링 시켜주기 때문
+        - 추가하고자 하는 데이터를 배열의 앞에 먼저 넣기
+    - Editor 컴포넌트에 onCreate props 전달
+        - `<Editor onCreate={onCreate}/>`
+- Editor.jsx
+    - onCreate → 구조 분해 할당으로 받아오기
+    - 추가 버튼 클릭할 때, onSubmit 함수 실행되도록
+    - onSubmit 함수 선언
+        - onCreate 호출 → 인수로 input 값
+        - input 값을 state로 보관하여 인수로 전달
+
+**데이터 추가 과정**
+
+추가 버튼 클릭 → onSubmit 함수 실행 → App 컴포넌트로부터 받은 onCreate 함수 호출, 인수로는 input 태그에 입력한 값을 전달 → App 컴포넌트의 onCreate 함수가 실행되면서 새로운 todo item을 만들고, setTodos 함수를 통해서 todos state에 추가
+
+- id를 기록하기 위한 ref 객체 생성
+    - App 컴포넌트에 useRef 사용하여 idRef 객체 생성
+    - id 값을 idRef.current++로 설정
+
+**아직 부족한 점**
+
+1. input에 입력하지 않고 추가 버튼 눌러도 추가 가능
+    
+    ⇒ 추가되지 않도록 하기
+    
+    ```jsx
+    // 빈 문자열이면 return & 입력 폼 focus 되도록 
+    const onSubmit = () => {
+        if (content === "") {
+            contentRef.current.focus()
+            return
+        }
+        onCreate(content)
+    }
+    ```
+    
+    - useRef 활용하여 contentRef 생성 → input 태그에 `ref={contentRef}` 입력
+2. 입력하고 추가 버튼 클릭 후, 입력 폼이 비워지지 않음
+    
+    ⇒ 입력 폼 비우기
+    
+    ```jsx
+    // setContent("") 추가
+    
+    const onSubmit = () => {
+        if (content === "") {
+            contentRef.current.focus()
+            return
+        }
+        onCreate(content)
+        setContent("")
+    }
+    ```
+    
+3. 추가 버튼 대신 엔터를 눌러도 추가되도록 만들면 좋을 것
+    - onKeyDown이라는 이벤트는 사용자가 키보드를 누를 때 발생하는 이벤트 → 어떤 키를 눌렀는지는 이벤트 객체에 keyCode 프로퍼티에 저장이 된다.
+    ```jsx
+    const onKeydown = (e) => {
+        if (e.keyCode === 13) {
+            onsubmit()
+        }
+    }
+    ```
 
 
