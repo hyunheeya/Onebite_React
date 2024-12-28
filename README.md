@@ -3344,3 +3344,12 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
         ```
 
 
+---
+### **8.6) Update - 투두 수정하기**
+
+- 체크박스가 현재 클릭 되어있는 아이템의 isDone 프로퍼티를 토글시켜주는 기능필요 → App 컴포넌트에서 setTodos를 바꾸는 함수 생성
+- onUpdate 함수를 List 컴포넌트에 전달하고 TodoItem 컴포넌트에 전달
+- 이벤트 핸들러로 onClick이 아닌 onChange 사용한 이유 → 요소가 button이 아니라 input 요소이기 때문
+
+
+
