@@ -1,8 +1,9 @@
 import './App.css'
-import { useState, useRef, useReducer } from 'react'
+import { useState, useRef, useReducer, useCallback } from 'react'
 import Header from './components/Header'
 import Editor from './components/Editor'
 import List from './components/List'
+import { use } from 'react'
 
 const mockData = [
   {
@@ -45,7 +46,7 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData)
   const idRef = useRef(3)
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       data: {
@@ -55,6 +56,7 @@ function App() {
         date: new Date().getTime(),
       }
     })
+  }, [])
 
     // const newTodo = {
     //   id: idRef.current++,
@@ -65,13 +67,14 @@ function App() {
 
     // setTodos([newTodo, ...todos])
 
-  }
+  // }
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: "UPDATE",
       targetId: targetId,
     })
+  }, [])
     
   
   //   // todos state의 값들 중에
@@ -84,18 +87,25 @@ function App() {
   //         ? {...todo, isDone: !todo.isDone}
   //         : todo
   //   ))
-  }
+  // }
 
-  const onDelete = (targetId) => {
+  // const onDelete = (targetId) => {
+  //   dispatch({
+  //     type: "DELETE",
+  //     targetId: targetId,
+  //   })
+
+  //   // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
+  //   setTodos(todos.filter((todo) => todo.id !== targetId))
+  // }
+
+
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId: targetId,
     })
-
-  //   // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
-  //   setTodos(todos.filter((todo) => todo.id !== targetId))
-  }
-
+  }, [])
 
   return (
     <div className="App">
