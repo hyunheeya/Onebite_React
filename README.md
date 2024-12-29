@@ -3440,3 +3440,63 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
     ```
 
 
+---
+### **9.2) 투두리스트 업그레이드**
+
+- useState 대신 useReducer 사용
+- 상태 변화 함수 코드들을 reducer로 옮기기
+- 복잡한 구현은 reducer 함수로 옮겨서 훨씬 더 가독성이 좋은 코드를 만들 수 있다.
+    
+    ```jsx
+    function reducer(state, action) {
+      switch(action.type) {
+        case 'CREATE':
+          return [action.data, ...state]
+        case 'UPDATE':
+          return state.map((item) =>
+            item.id === action.targetId 
+              ? { ...item, isDone: !item.isDone }
+              : item)
+        case 'DELETE':
+          return state.filter((item) => item.id !== action.targetId)
+        default:
+          return state
+      }
+    }
+    
+    function App() {
+      const [todos, dispatch] = useReducer(reducer, mockData)
+      const idRef = useRef(3)
+    
+      const onCreate = (content) => {
+        dispatch({
+          type: "CREATE",
+          data: {
+            id: idRef.current++,
+            isDone: false,
+            content: content,
+            date: new Date().getTime(),
+          }
+        })
+      }
+    
+      const onUpdate = (targetId) => {
+        dispatch({
+          type: "UPDATE",
+          targetId: targetId,
+        })
+      }
+    
+      const onDelete = (targetId) => {
+        dispatch({
+          type: "DELETE",
+          targetId: targetId,
+        })
+      }
+    ```
+    
+- React에서 state를 관리할 때, 배열 안에 객체가 들어가는 구조는 보통 useReducer를 이용해서 관리하는 게 일반적
+- 카운터 앱처럼 간단한 상태 변화 코드만 있다면 useState로 해도 충분하다.
+
+
+
