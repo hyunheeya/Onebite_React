@@ -1,11 +1,11 @@
 # Onebite_React
 
-## 섹션 1 - 들어가며
+## 섹션 0 - 들어가며
 **React.js**는 Node.js 기반의 JavaScript 라이브러리
 ⇒ React는 JavaScript를 더 잘 쓰기 위한 일종의 도구일 뿐이다!
 
 ---
-## 섹션 2 - JavaScript 기본
+## 섹션 1 - JavaScript 기본
 ### 1.1) 안녕 자바스크립트
 
 - JavaScript는 **오늘날 가장 많이 사용**되는 프로그래밍 언어
@@ -504,7 +504,7 @@
 
 
 ---
-## 섹션 3 - JavaScript 심화
+## 섹션 2 - JavaScript 심화
 ### **2.1) Truthy와 Falsy**
 
 - JavaScript는 어떠한 값이 boolean 타입에 해당하는 참이거나 거짓이지 않아도 상황에 따라서 참으로 판단하거나 거짓으로 판단하는 경우가 있다.
@@ -1698,7 +1698,7 @@ printData()     // {name: '이정환', id: 'winterlood'}
 
 
 ---
-## 섹션 4 - Node.js 기초
+## 섹션 3 - Node.js 기초
 ### **3.1) Node.js를 소개합니다**
 
 왜 Node.js를 배워야 하나요?
@@ -1818,7 +1818,7 @@ Node.js는 왜 만든걸까?
 
 
 ---
-## 섹션 5 - React.js 개론
+## 섹션 4 - React.js 개론
 ### **4.1) React.js를 소개합니다**
 
 **React.js란?**
@@ -2029,7 +2029,7 @@ React App은 어떻게 구동되는 걸까?
 
 
 ---
-## 섹션 6 - React.js 입문
+## 섹션 5 - React.js 입문
 ### **5.1) 실습 준비하기**
 
 - svg 파일 및 import 문 삭제
@@ -2885,7 +2885,7 @@ Q.  입력창에 123123을 입력하면 `useInput()` 함수가 총 6번 호출�
 
 
 ---
-## 섹션 7 - 프로젝트1. 카운터 앱
+## 섹션 6 - 프로젝트1. 카운터 앱
 ### **6.1) 프로젝트 소개 및 준비**
 
 
@@ -2986,7 +2986,7 @@ Q.  입력창에 123123을 입력하면 `useInput()` 함수가 총 6번 호출�
 
 
 ---
-## 섹션 8 - 라이프사이클
+## 섹션 7 - 라이프사이클
 ### **7.1) 라이프사이클이란?**
 
 - **라이프사이클(LifeCycle) = 생애주기** : 인간의 탄생부터 죽음까지의 타임라인을 단계별로 나눈 것
@@ -3155,7 +3155,7 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
 
 
 ---
-## 섹션 9 - 프로젝트2. 투두리스트
+## 섹션 8 - 프로젝트2. 투두리스트
 
 ### **8.1) 프로젝트 소개 및 준비**
 **기능**
@@ -3366,5 +3366,77 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
 - 버튼이 클릭 되었을 때, onDelete 함수를 호출하는 onClickDeleteButton 함수 생성
     - `<button onClick={onClickDeleteButton}>`
 
+
+
+---
+## 섹션 9 - useReducer
+### **9.1) useReducer를 소개합니다**
+
+**useReducer란?**
+
+- useState와 동일하게 컴포넌트 내부에 새로운 state를 생성하는 React Hook
+- useState와 거의 비슷한 기능
+- 컴포넌트 내부에 상태 관리 코드를 작성해야 하는 useState와 달리 **상태를 관리하는 코드들을 컴포넌트 외부로 분리할 수 있다.**
+
+- useState를 사용하면 state의 값이 복잡해지거나 다양한 상태 변화를 제공할 경우에 컴포넌트 안에 훨씬 더 긴 코드를 작성해야 함 → react 컴포넌트의 가장 주된 역할은 UI 렌더링 → state를 관리하는 코드가 너무 많아지게 되면 주객이 전도되는 것임, UI를 렌더링 하는 코드보다 상태를 관리하는 코드들이 복잡하고 길어지게 되기 때문 → App 컴포넌트가 렌더링 하는 UI 요소가 무엇인지 한눈에 파악하기 어렵고(가독성 떨어짐), 유지보수 하기 어려움
+    
+    ⇒ 상태를 관리하는 코드들이 복잡해지고 길어진다면 컴포넌트 외부에 별도의 함수로써 분리해줄 필요가 있다 → useReducer 활용
+    
+
+**useReducer**
+
+- `const [state, dispatch] = useReducer(reducer, 0)`
+    - state : 새로운 state를 생성해서 배열의 첫 번째 요소로 반환
+    - dispatch : 상태 변화가 있어야 한다는 사실을 알리는, 발송하는 함수를 반환
+        - dispatch : 발송하다, 급송하다
+    - onClick 핸들러인 onClickPlus 함수를 만들어서 버튼이 클릭될 때 dispatch 함수를 호출
+        - 인수: 상태가 어떻게 변화되길 원하는지
+        - dispatch 인수에는 객체 형태로, type 프로퍼티에 상태를 어떻게 변화시키길 원하는지 적는다.
+        - data 프로퍼티에는 얼만큼 변화시킬 것인지
+        - 인수로 전달된, 요청의 내용을 담고 있는 객체 : 액션 객체
+        
+        ```jsx
+        const onClickPlus = () => {
+            // 인수: 상태가 어떻게 변화되길 원하는지
+            dispatch({
+                type: "INCREASE",
+                data: 1,
+            })
+        }
+        ```
+        
+    - reducer : 변환기
+        - 상태를 실제로 변환시키는 변환기 역할
+        - dispatch 함수가 호출이 되면 useReducer가 상태 변화를 실제로 처리하게 될 함수(reducer)를 호출 → 이 함수를 첫 번째 인수로 넣어줘야 한다.
+            - 두 번째 인수는 state의 초기값
+        - reducer 함수의 첫 번째 매개변수에는 현재 state 값을, 두 번째로는 요청의 내용이 담긴 action 객체 제공
+        - 상태 변화 함수(useState)가 없는데 어떻게 state 값을 변경? ⇒ reducer 함수에서 새로운 state 값을 반환하면 반환된 값을 useReducer가 불러와서 state의 값을 변경시켜준다.
+- +버튼을 눌러서 dispatch 함수가 호출이 되고, reducer 함수가 실행되었을 때 매개변수 state에는 초기값인 0이 들어가게 되고 두 번째 매개변수인 action에는 액션 객체가 들어가게 된다. 따라서 조건문이 참이 되어서 현재 state 값인 0에 action.data의 값인 1을 더한 값을 반환하고, 이렇게 반환된 값이 새로운 state 값으로 반영되기 때문에 결과적으로 브라우저에 state가 잘 업데이트 된다.
+- reducer 함수 안에 액션 타입이 너무 많아질 것 같다 → if 문 대신 switch 문 사용, switch 문이 더 일반적
+    
+    ```jsx
+    // if 문
+    function reducer(state, action) {
+        if (action.type === "INCREASE") {
+            return state + action.data
+        } else if (action.type === "DECREASE") {
+            return state - action.data
+        }
+    }
+    ```
+    
+    ```jsx
+    // switch 문
+    function reducer(state, action) {
+        switch(action.type) {
+            case 'INCREASE':
+                return state + action.data
+            case 'DECREASE':
+                return state - action.data
+            default:
+                return state
+        }
+    }
+    ```
 
 
