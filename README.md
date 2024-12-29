@@ -3637,4 +3637,40 @@ Q. `value={input}` → 입력 필드의 표시 값, React 상태와 입력 필�
     - context를 여러 개 만드는 것도 가능
         
 
+---
+### **11.2) Context 사용하기**
+
+- `import { createContext } from “react”`
+- Context는 보통 컴포넌트 외부에 선언을 한다 → 내부에 하게 되면 App 컴포넌트가 리렌더링 될 때마다 계속 새로운 context를 생성하게 된다 → context는 하위 컴포넌트에 데이터를 전달해주기만 하면 되기 때문에 굳이 App 컴포넌트가 리렌더링 될 때마다 다시 생성될 필요 X
+- Context는 굉장히 여러 개의 프로퍼티를 갖는 객체
+    - Provider: context가 공급할 데이터를 설정하거나 context의 데이터를 공급 받을 컴포넌트들을 설정하기 위해 사용하는 프로퍼티 → 사실 컴포넌트임
+    
+    ```jsx
+      return (
+        <div className="App">
+          <Header />
+          <TodoContext.Provider>
+            <Editor onCreate={onCreate}/>
+            <List 
+              todos={todos}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
+          </TodoContext.Provider>
+        </div>
+      )
+    ```
+    
+    - TodoContext.Provider 컴포넌트의 모든 자식, 자손 컴포넌트들은 전부 다 value props로 설정한 TodoContext가 공급하는 값들을 다이렉트로 꺼내와서 언제든지 사용할 수 있다.
+    - 공급할 데이터는 value라는 props로 전달하면 된다.
+    
+    
+
+- 데이터를 사용할 컴포넌트는 useContext를 react에서 불러와야 한다.
+    - `import { useContext } from 'react’`
+- useContext()의 인수로는 데이터를 불러오고자 하는 context를 직접 넣어준다.
+    - `const { todos } = useContext(TodoContext)`
+- Context를 적용하니 최적화가 풀렸다 → 다음 시간에
+
+
 
