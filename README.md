@@ -3823,3 +3823,65 @@ MPA 방식
 
 
 
+---
+### **12.3) 페이지 라우팅 2. 라우팅 설정하기**
+
+- React Router
+    - 대다수의 React App이 사용하고 있는 대표적인 라이브러리
+
+
+- 설치: `npm i react-router-dom`
+- BrowserRouter: 브라우저의 현재 주소를 저장하고 감지하는 역할
+    
+    ```
+    // main.jsx
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    ```
+    
+    - React의 모든 컴포넌트들이 현재 브라우저의 주소를 불러와서 쓸 수도 있고 주소의 변화를 감지할 수도 있게 된다.
+    - BrowserRouter에 보관되는 모든 데이터들은 컨텍스트 객체의 provider 컴포넌트를 이용해서 모든 자손 컴포넌트들에게 공급
+    - 그렇기 때문에 App 컴포넌트를 BrowserRouter로 감싸줘야 한다.
+- 페이지 나누기
+    - “/” : 모든 일기를 조회하는 Home 페이지
+    - “/new” : 새로운 일기를 작성하는 New 페이지
+    - “/diary” : 일기를 상세히 조회하는 Diary 페이지
+- 페이지를 나누기 위해서는 각각의 컴포넌트를 먼저 만들어줘야 한다.
+    - React에서는 모든 요소가 컴포넌트로 나뉜다고 했기 때문에 페이지도 컴포넌트로 이루어진다.
+    - 페이지 역할을 하는 컴포넌트들을 모아두기 위해서 src 폴더에 pages라는 폴더 만들기
+        - pages 폴더 안에 Diary.jsx, Home.jsx, New.jsx 파일 만들기
+- App 컴포넌트의 return 문에서 Routes로 Route 감싸기
+    - Route 안에 path : 경로, element : 렌더링 하고자 하는 컴포넌트 넣기
+    
+    ```jsx
+    <Routes>
+      <Route path="/" element={<Home />}/>
+      <Route path="/new" element={<New />}/>
+      <Route path="/diary" element={<Diary />}/>
+    </Routes>
+    ```
+    
+    - 만약에 현재 브라우저의 경로가 /new 였다면 Routes 컴포넌트는 마치 switch-case 처럼 위에서부터 순서대로 이 경로와 일치하는 path prop을 갖는 Route 컴포넌트를 찾는다.
+    - 찾은 Route 컴포넌트에 element prop으로 전달된 New라는 컴포넌트를 페이지로써 화면에 렌더링 시켜준다.
+    - 우리가 App 컴포넌트에 라우트로 설정해놓지 않은 경로로 요청을 보내게 되면 아무런 컴포넌트도 렌더링 되지 않고, 콘솔에 `No routes matched location "/test”`라는 에러가 뜬다.
+        - 엉뚱한 경로의 요청이 들어왔을 때 보여줄 Not Found 페이지를 만들고 싶다면, Pages 폴더 아래에 새롭게 NotFound.jsx 파일을 추가
+        - App 컴포넌트에서 NotFound.jsx을 import 한 다음, Route 경로 추가
+        - path=”*” → wildcard → switch case 문의 default 문과 비슷 ⇒ 위에 있는 경로와 일치하지 않았을 때 마지막에 이 라우트 컴포넌트와 매칭이 되어서 이 라우트 컴포넌트에 element prop으로 전달한 NotFound 컴포넌트를 렌더링
+- **Routes 컴포넌트와 Route 컴포넌트를 이용하면 우리가 원하는 경로에 우리가 우리가 원하는 컴포넌트를 렌더링 시켜줄 수 있도록 페이지 라우팅을 설정할 수 있다.**
+
+**※ 주의사항 ※**
+
+1. **Routes 컴포넌트 안에는 Route 컴포넌트만** 들어갈 수 있다.
+    
+    → div 태그 등등 X
+    
+2. **Routes 컴포넌트 바깥에 배치된 요소들은 페이지 라우팅과는 관련없이, 모든 페이지에 다 동일하게 렌더링이 된다.**
+    
+    Ex) Routes 컴포넌트 바깥에 `<div>Hello</div>` → 모든 페이지에 Hello 출력
+    
+    - Routes 컴포넌트 안에 있는 요소만 페이지에 따라서 렌더링이 바뀌고 그 외부에는 우리가 일반적인 react 컴포넌트처럼 모두 다 렌더링이 진행되기 때문에 페이지의 경로와는 관계없이 모두 다 렌더링이 된다.
+    - 모든 페이지에 공통적으로 사용될 요소가 아니라면 Routes 컴포넌트 외부에 배치하는 것은 적절하지 않다.
+
+
+
