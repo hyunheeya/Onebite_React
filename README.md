@@ -3912,3 +3912,55 @@ MPA 방식
     ```
 
 
+
+---
+### **12.5) 페이지 라우팅 4. 동적 경로**
+
+**동적 경로(Dynamic Segments)란?**
+
+- 동적인 데이터를 포함하고 있는 경로
+    - Ex) 동적인 데이터 → 상품 ID
+
+동적 경로 종류
+
+1. **URL Parameter**
+    - / 뒤에 아이템의 ID를 명시
+    - 아이템의 ID 같이 잘 변경되지 않는 값을 주소에 명시하기 위해서 사용
+2. **Query String**
+    - 물음표 뒤에 변수 이름을 쓰고 =을 쓴 다음에 마치 변수를 선언하듯이 변수와 함께 값을 명시
+    - 검색어 같은 자주 변경되는 값들을 주소로써 명시하기 위해 사용
+
+- URL Parameter를 사용해서 각 id에 맞는 일기 렌더링
+    - Route 컴포넌트의 path에 URL Parameter를 사용할 것임을 명시해줘야 한다.
+        - `<Route path="/diary/:id" element={<Diary />}/>`
+    - 다이어리 컴포넌트에서 URL Parameter로 전달한 값을 꺼내올 수 있도록 설정해줘야 한다.
+        - `import { useParams } from 'react-router-dom’`
+            - useParams 훅은 현재 브라우저에 명시한 URL Parameter의 값을 가져오는 기능을 하는 커스텀 훅
+        - `const params = useParams()`
+            - id라는 URL Parameter가 객체 안에 담긴 형태로 params라는 변수에 저장된다.
+        
+        ```jsx
+        import { useParams } from 'react-router-dom'
+        
+        const Diary = () => {
+            const params = useParams()
+        
+            return <div>{params.id}번 일기입니다~~~</div>
+        }
+        
+        export default Diary
+        ```
+        
+
+- Query String은 감정 일기장에서 사용 X, 간단하게 살펴봄
+    - 별도의 Route컴포넌트 설정 X
+    - Query String을 사용하는 컴포넌트에서 useSearchParams라는 커스텀 훅 불러오기
+        - `import { useSearchParams } from "react-router-dom”`
+    - 마치 useState를 사용하듯이
+        - `const [params, setParams] = useSearchParams()`
+        - params 변수에는 실제로 Query String으로 전달한 변수와 값들이 들어오게 된다.
+        - setParams에는 특정 Query String의 값을 변경할 수 있는 함수가 들어오게 된다.
+    - Ex) ?value=hello ⇒ console.log(params.get(”value”) → hello 출력
+
+
+
