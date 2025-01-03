@@ -3888,8 +3888,8 @@ MPA 방식
 ---
 ### **12.4) 페이지 라우팅 3. 페이지 이동**
 
-- 버튼, 링크 등을 통해 페이지 이동
-1. 링크
+- 링크, 버튼을 통해 페이지 이동
+1. **링크**
     - “Link” import - `import { Link } from 'react-router-dom’`
         - react-router-dom은 페이지를 이동시키는 Link 라는 별도의 컴포넌트를 제공
         - HTML의 a태그를 대체하는 기능을 하는 컴포넌트
@@ -3897,7 +3897,7 @@ MPA 방식
             - `<Link to={"/"}>Home</Link>`
     - 페이지 새로고침 없이 컴포넌트 교체만 이루어진다 → 쾌적하고 빠르게 화면 이동
     - React App 내부에서 내부 링크를 만들어야 할 때 a 태그 대신 Link 컴포넌트를 이용하는 게 훨씬 좋다.
-2. useNavigate
+2. **useNavigate**
     - 함수를 이용해서 특정 이벤트가 발생했을 때 페이지를 이동시키는 방법
     - `import { useNavigate } from 'react-router-dom’`
     - 페이지를 실제로 이동시키는 Navigate 함수를 반환해준다.
